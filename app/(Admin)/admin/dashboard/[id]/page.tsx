@@ -1,9 +1,11 @@
 'use client'
 
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const Dashboard = () => {
+	const { id } = useParams()
 	const [formData, setFormData] = useState({
 		title: '',
 		content: '',
