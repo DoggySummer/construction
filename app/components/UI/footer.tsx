@@ -8,20 +8,31 @@ const Footer = () => {
 	const email = 'kacoh@hanmail.net'
 	const copyRight = 'COPYRIGHT 2025 신의환경. ALL RIGHTS RESERVED.'
 	return (
-		<div className='w-full px-30 border-t border-black mb-10'>
-			<div className='mt-10 flex items-center'>
-				<div className=''>{name}</div>
-				<div className='mx-2 w-[1px] h-6 bg-black' />
-				<div className=''>{address}</div>
-				<div className='mx-2 w-[1px] h-6 bg-black' />
-				<div className=''>{telephone}</div>
-				<div className='mx-2 w-[1px] h-6 bg-black' />
-				<div className=''>{fax}</div>
-				<div className='mx-2 w-[1px] h-6 bg-black' />
-				<div className=''>{email}</div>
+		<div className='w-full px-8 sm:px-12 md:px-30 border-t border-black mb-10'>
+			<div className='mt-10 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-2'>
+				<div className='flex items-center'>
+					<div>{name}</div>
+					<div className='hidden sm:block mx-2 w-[1px] h-6 bg-black' />
+				</div>
+				<div className='flex items-center'>
+					<div>{address}</div>
+					<div className='hidden sm:block mx-2 w-[1px] h-6 bg-black' />
+				</div>
+				<div className='flex items-center'>
+					<div>{telephone}</div>
+					<div className='hidden sm:block mx-2 w-[1px] h-6 bg-black' />
+				</div>
+				<div className='flex items-center'>
+					<div>{fax}</div>
+					<div className='hidden sm:block mx-2 w-[1px] h-6 bg-black' />
+				</div>
+				<div className='flex items-center'>
+					<div>{email}</div>
+				</div>
 			</div>
-			<div className='mt-2 flex items-center'>
-				<div className=''>{copyRight}</div>
+
+			<div className='mt-2'>
+				<div>{copyRight}</div>
 			</div>
 		</div>
 	)

@@ -7,7 +7,7 @@ import fullImage from '@/public/building.jpg'
 
 const Page = () => {
 	return (
-		<div className='mx-auto px-30 py-12'>
+		<div className='mx-auto lg:px-30 px-10 py-12'>
 			<Title title='프로젝트' />
 
 			{/* 이미지 */}

@@ -34,7 +34,7 @@ export default function Navbar() {
 
 	return (
 		<div
-			className={`fixed top-0 left-0 w-full pl-30 pr-10 pb-10 pt-14 z-30 flex justify-between items-center text-white transition-all duration-300 ${navbarStyle}`}
+			className={`fixed top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pb-10 pt-14 z-30 flex justify-between items-center text-white transition-all duration-300 ${navbarStyle}`}
 		>
 			<Link href='/' className='text-2xl font-bold cursor-pointer'>
 				신의환경 로고
@@ -80,7 +80,7 @@ export default function Navbar() {
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
 							onClick={() => setIsMenuOpen(false)}
-							className='fixed inset-0 bg-black/50 z-40'
+							className='fixed inset-0 bg-black/60 z-40 h-screen'
 						/>
 
 						{/* 슬라이드 메뉴 */}
@@ -89,7 +89,7 @@ export default function Navbar() {
 							animate={{ x: 0 }}
 							exit={{ x: '100%' }}
 							transition={{ type: 'tween', duration: 0.3 }}
-							className='fixed top-0 right-0 w-[300px] h-full bg-black/90 backdrop-blur-md z-50 p-8'
+							className='fixed top-0 right-0 w-[300px] h-screen bg-black z-50 p-8'
 						>
 							<button
 								className='absolute top-6 right-6 text-white'

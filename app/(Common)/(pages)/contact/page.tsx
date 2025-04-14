@@ -145,7 +145,7 @@ const Contact = () => {
 
 				<button
 					type='submit'
-					className='w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+					className='cursor-pointer w-full bg-neutral-700 text-white py-4 px-6 rounded-lg font-medium hover:bg-neutral-900 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-neutral-700 focus:ring-offset-2'
 				>
 					문의 보내기
 				</button>

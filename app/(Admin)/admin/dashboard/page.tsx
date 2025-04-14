@@ -1,6 +1,6 @@
 'use client'
 
-import Table from '@/app/components/admin/table'
+import PaginationTable from '@/app/components/admin/table'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -11,21 +11,33 @@ const Dashboard = () => {
 		const fetchData = async () => {
 			const response = await fetch('/api/dashboard')
 			const data = await response.json()
-			setDataList(data.items)
+			const formattedData = data.items.map((item: any) => ({
+				...item,
+				createdAt: new Date(item.createdAt).toLocaleString('ko-KR', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+					hour: '2-digit',
+					minute: '2-digit',
+					second: '2-digit',
+					hour12: false,
+				}),
+			}))
+			setDataList(formattedData)
 		}
 		fetchData()
 	}, [])
 	const columns = [
 		{
-			header: 'id',
+			header: '아이디',
 			accessor: 'example',
 			width: 'w-20',
 			type: 'text' as const,
 		},
-		{ header: 'title', accessor: 'title', type: 'text' as const },
-		{ header: 'content', accessor: 'content', type: 'text' as const },
-		{ header: 'imageUrl', accessor: 'imageUrl', type: 'image' as const },
-		{ header: 'createdAt', accessor: 'createdAt', type: 'text' as const },
+		{ header: '제목', accessor: 'title', type: 'text' as const },
+		{ header: '내용', accessor: 'content', type: 'text' as const },
+		{ header: '이미지', accessor: 'imageUrl', type: 'image' as const },
+		{ header: '생성일자', accessor: 'createdAt', type: 'text' as const },
 	]
 	const handleRowClick = (row: any) => {
 		router.push(`/admin/dashboard/${row.example}`)
@@ -33,7 +45,11 @@ const Dashboard = () => {
 	return (
 		<>
 			<h1 className='text-2xl font-bold mb-4'>관리자 대시보드</h1>
-			<Table columns={columns} data={dataList} onRowClick={handleRowClick} />
+			<PaginationTable
+				columns={columns}
+				data={dataList}
+				onRowClick={handleRowClick}
+			/>
 			<button
 				onClick={() => router.push('/admin/upload')}
 				className='px-4 mt-20 cursor-pointer py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2'
