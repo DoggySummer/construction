@@ -3,7 +3,7 @@ import fullImage from '@/public/building.jpg'
 
 const Board = () => {
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:px-30 px-10 mb-40'>
+		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 defaultWidth mb-40'>
 			<Card
 				id='1'
 				image={fullImage}

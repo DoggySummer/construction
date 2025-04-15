@@ -10,7 +10,7 @@ export default function Home() {
 			<Landing />
 			<LandingAbout />
 			<LandingSwiper />
-			<div className='flex flex-wrap px-30 mt-40 gap-30 mb-50'>
+			<div className='flex flex-wrap defaultWidth mt-40 gap-30 mb-50'>
 				<Counting
 					title='Years experience'
 					count={10}

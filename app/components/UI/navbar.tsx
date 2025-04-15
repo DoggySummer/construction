@@ -121,7 +121,7 @@ export default function Navbar() {
 									자료실
 								</Link>
 								<Link
-									href='/'
+									href='/location'
 									className='text-xl font-semibold text-white hover:text-gray-300 transition-colors'
 									onClick={() => setIsMenuOpen(false)}
 								>

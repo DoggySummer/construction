@@ -1,1 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@layer utilities {
+	.defaultWidth {
+		@apply px-3 md:px-30;
+	}
+}

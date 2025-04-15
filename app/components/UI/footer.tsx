@@ -8,7 +8,7 @@ const Footer = () => {
 	const email = 'kacoh@hanmail.net'
 	const copyRight = 'COPYRIGHT 2025 신의환경. ALL RIGHTS RESERVED.'
 	return (
-		<div className='w-full px-8 sm:px-12 md:px-30 border-t border-black mb-10'>
+		<div className='w-full  sm:px-12 defaultWidth border-t border-black mb-10'>
 			<div className='mt-10 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-2'>
 				<div className='flex items-center'>
 					<div>{name}</div>

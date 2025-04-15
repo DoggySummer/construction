@@ -53,7 +53,7 @@ const KakaoMap = () => {
 	}, [])
 
 	return (
-		<div className='w-full mx-auto mt-40 px-30'>
+		<div className='w-full mx-auto mt-40 defaultWidth'>
 			<Title title='오시는 길' />
 			<div
 				ref={mapRef}
