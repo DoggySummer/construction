@@ -13,16 +13,19 @@ export default function Navbar() {
 
 	const pathname = usePathname()
 	const navbarStyle =
-		pathname === '/' && !subMenuOpen ? 'bg-transparent' : 'bg-white'
-	const linkClassname = 'font-medium px-2 mx-4 relative w-40 text-center'
+		pathname === '/' && !subMenuOpen ? 'bg-transparent ' : 'bg-white '
+	const linkClassname =
+		'font-medium px-2 mx-4 relative w-40 text-center pb-10 hover:text-[#095693] transition-colors duration-300 after:absolute after:bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-[#095693] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-center'
 
 	return (
 		<div
-			className={`absolute top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pb-10 pt-14 z-30 flex justify-between items-center text-white transition-all duration-300 ${navbarStyle}`}
+			className={`absolute top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pt-14 z-30 flex justify-between items-center transition-[background-color] duration-300 ${navbarStyle} ${
+				subMenuOpen ? 'text-black' : 'text-white'
+			}`}
 		>
 			<Link
 				href='/'
-				className='text-3xl font-medium cursor-pointer flex items-center gap-3'
+				className='text-3xl font-medium cursor-pointer flex items-center gap-3 pb-10'
 			>
 				<Image src={logo} width={36} height={36} alt='logo' /> |주|신의환경
 			</Link>
@@ -37,19 +40,44 @@ export default function Navbar() {
 				>
 					회사 소개
 				</Link>
-				<Link href='/about' className={linkClassname}>
+				<Link
+					href='/about'
+					className={linkClassname}
+					onMouseEnter={() => setSubMenuOpen(true)}
+					onMouseLeave={() => setSubMenuOpen(false)}
+				>
 					사업분야
 				</Link>
-				<Link href='/dashboard' className={linkClassname}>
+				<Link
+					href='/dashboard'
+					className={linkClassname}
+					onMouseEnter={() => setSubMenuOpen(true)}
+					onMouseLeave={() => setSubMenuOpen(false)}
+				>
 					주요실적
 				</Link>
-				<Link href='/location' className={linkClassname}>
+				<Link
+					href='/location'
+					className={linkClassname}
+					onMouseEnter={() => setSubMenuOpen(true)}
+					onMouseLeave={() => setSubMenuOpen(false)}
+				>
 					커뮤니티
 				</Link>
-				<Link href='/contact' className={linkClassname}>
+				<Link
+					href='/contact'
+					className={linkClassname}
+					onMouseEnter={() => setSubMenuOpen(true)}
+					onMouseLeave={() => setSubMenuOpen(false)}
+				>
 					견적문의
 				</Link>
-				<SubMenu />
+				<div
+					onMouseEnter={() => setSubMenuOpen(true)}
+					onMouseLeave={() => setSubMenuOpen(false)}
+				>
+					{subMenuOpen && <SubMenu />}
+				</div>
 			</div>
 
 			{/* 모바일 햄버거 버튼 */}
@@ -166,26 +194,28 @@ const SubMenu = () => {
 	const submenu = [corpInfo, newTech, businessField, mainPerformance, community]
 
 	return (
-		<div className='absolute top-full left-0 w-full bg-white pr-10 flex justify-end'>
-			{submenu.map((menu, i) => {
-				return (
-					<div
-						className='text-center text-black w-40 mx-4 flex flex-col  items-center'
-						key={i}
-					>
-						{menu.map((item, i) => {
-							return (
-								<div
-									className='text-center text-base text-black w-fit mx-4 py-2 cursor-pointer hover:text-[#095693] transition-colors duration-300'
-									key={i}
-								>
-									{item}
-								</div>
-							)
-						})}
-					</div>
-				)
-			})}
-		</div>
+		<motion.div
+			initial={{ height: 0, opacity: 0 }}
+			animate={{ height: '260px', opacity: 1 }}
+			exit={{ height: 0, opacity: 0 }}
+			transition={{ duration: 0.1 }}
+			className='absolute top-30 left-0 w-full bg-white pr-10 flex justify-end transition-all overflow-hidden border-t border-t-gray-300'
+		>
+			{submenu.map((menu, i) => (
+				<div
+					className='text-center text-black w-40 mx-4 flex flex-col items-center'
+					key={i}
+				>
+					{menu.map((item, i) => (
+						<div
+							className='text-center text-base text-black w-fit mx-4 py-2 cursor-pointer hover:text-[#095693] transition-colors duration-300'
+							key={i}
+						>
+							{item}
+						</div>
+					))}
+				</div>
+			))}
+		</motion.div>
 	)
 }
