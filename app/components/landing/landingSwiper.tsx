@@ -3,7 +3,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectFade } from 'swiper/modules'
 import Image from 'next/image'
-import fullImage from '@/public/building.jpg'
+import swiperImg1 from '@/public/swiper_1.png'
+import swiperImg2 from '@/public/swiper_2.png'
+import swiperImg3 from '@/public/swiper_3.png'
+import swiperImg4 from '@/public/swiper_4.png'
 
 // Swiper styles
 import 'swiper/css'
@@ -12,14 +15,12 @@ import 'swiper/css/effect-fade'
 
 export default function LandingSwiper() {
 	const images = [
-		fullImage,
-		fullImage,
-		fullImage,
-		fullImage,
-		fullImage,
-		fullImage,
-		fullImage,
-		fullImage,
+		swiperImg1,
+		swiperImg2,
+		swiperImg3,
+		swiperImg4,
+		swiperImg1,
+		swiperImg2,
 	]
 
 	return (

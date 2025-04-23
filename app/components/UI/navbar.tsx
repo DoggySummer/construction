@@ -4,62 +4,52 @@ import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+import logo from '@/public/logo-nobg.png'
 
 export default function Navbar() {
-	const [isScrolled, setIsScrolled] = useState(false)
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [subMenuOpen, setSubMenuOpen] = useState(false)
+
 	const pathname = usePathname()
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 0) {
-				setIsScrolled(true)
-			} else {
-				setIsScrolled(false)
-			}
-		}
-
-		window.addEventListener('scroll', handleScroll)
-		return () => window.removeEventListener('scroll', handleScroll)
-	}, [])
-
 	const navbarStyle =
-		pathname === '/'
-			? isScrolled
-				? 'bg-black/80 backdrop-blur-sm'
-				: 'bg-transparent'
-			: 'bg-black/80 backdrop-blur-sm'
-	const linkClassname =
-		'font-semibold px-2 mx-4 relative after:absolute after:bottom-[-6px] after:left-0 after:w-0 after:h-[3px] after:bg-white after:transition-all after:duration-300 hover:after:w-full'
+		pathname === '/' && !subMenuOpen ? 'bg-transparent' : 'bg-white'
+	const linkClassname = 'font-medium px-2 mx-4 relative w-40 text-center'
 
 	return (
 		<div
-			className={`fixed top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pb-10 pt-14 z-30 flex justify-between items-center text-white transition-all duration-300 ${navbarStyle}`}
+			className={`absolute top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pb-10 pt-14 z-30 flex justify-between items-center text-white transition-all duration-300 ${navbarStyle}`}
 		>
-			<Link href='/' className='text-2xl font-bold cursor-pointer'>
-				신의환경 로고
+			<Link
+				href='/'
+				className='text-3xl font-medium cursor-pointer flex items-center gap-3'
+			>
+				<Image src={logo} width={36} height={36} alt='logo' /> |주|신의환경
 			</Link>
 
 			{/* 데스크톱 메뉴 */}
 			<div className='hidden lg:flex text-xl items-center'>
-				<Link href='/' className={linkClassname}>
-					홈
-				</Link>
-				<Link href='/about' className={linkClassname}>
+				<Link
+					href='/about'
+					className={linkClassname}
+					onMouseEnter={() => setSubMenuOpen(true)}
+					onMouseLeave={() => setSubMenuOpen(false)}
+				>
 					회사 소개
 				</Link>
 				<Link href='/about' className={linkClassname}>
-					사업실적
+					사업분야
 				</Link>
 				<Link href='/dashboard' className={linkClassname}>
-					자료실
+					주요실적
 				</Link>
 				<Link href='/location' className={linkClassname}>
-					오시는 길
+					커뮤니티
 				</Link>
 				<Link href='/contact' className={linkClassname}>
-					문의하기
+					견적문의
 				</Link>
+				<SubMenu />
 			</div>
 
 			{/* 모바일 햄버거 버튼 */}
@@ -139,6 +129,63 @@ export default function Navbar() {
 					</>
 				)}
 			</AnimatePresence>
+		</div>
+	)
+}
+
+const SubMenu = () => {
+	const corpInfo = [
+		'CEO 인사말',
+		'경영 이념',
+		'회사 연혁',
+		'조직도',
+		'오시는 길',
+	]
+	const newTech = [
+		'철거전용모듈비계',
+		'지하해체특허공법',
+		'기술연구소',
+		'인증 및 특허',
+		'수상실적',
+	]
+	const businessField = [
+		'철거전용모듈비계',
+		'구조물해체공사',
+		'석면해체공사',
+		'토공사',
+		'장비임대',
+		'해체계획서',
+	]
+	const mainPerformance = [
+		'철거전용모듈비계',
+		'구조물해체공사',
+		'석면해체공사',
+		'토공사',
+	]
+	const community = ['견적문의', '공법소개', '자료실']
+	const submenu = [corpInfo, newTech, businessField, mainPerformance, community]
+
+	return (
+		<div className='absolute top-full left-0 w-full bg-white pr-10 flex justify-end'>
+			{submenu.map((menu, i) => {
+				return (
+					<div
+						className='text-center text-black w-40 mx-4 flex flex-col  items-center'
+						key={i}
+					>
+						{menu.map((item, i) => {
+							return (
+								<div
+									className='text-center text-base text-black w-fit mx-4 py-2 cursor-pointer hover:text-[#095693] transition-colors duration-300'
+									key={i}
+								>
+									{item}
+								</div>
+							)
+						})}
+					</div>
+				)
+			})}
 		</div>
 	)
 }
