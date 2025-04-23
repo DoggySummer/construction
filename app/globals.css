@@ -4,4 +4,11 @@
 	.defaultWidth {
 		@apply px-3 md:px-30;
 	}
+	.contentSize {
+		@apply max-w-[1200px];
+		@apply mx-auto;
+	}
+}
+@theme {
+	--color-primary: #095693;
 }

@@ -6,7 +6,7 @@ interface TitleProps {
 
 export default function Title({ title }: TitleProps) {
 	return (
-		<div className='relative py-20 text-center mt-40'>
+		<div className='relative py-20 text-center'>
 			<h1 className='text-5xl font-bold tracking-tight'>
 				<motion.div
 					initial={{ opacity: 0, y: -20 }}

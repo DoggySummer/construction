@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import logo from '@/public/logo-nobg.png'
+import { submenu } from '@/app/constants/constants'
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -20,7 +21,7 @@ export default function Navbar() {
 	return (
 		<div
 			className={`absolute top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pt-14 z-30 flex justify-between items-center transition-[background-color] duration-300 ${navbarStyle} ${
-				subMenuOpen ? 'text-black' : 'text-white'
+				pathname === '/' && !subMenuOpen ? 'text-white' : 'text-black'
 			}`}
 		>
 			<Link
@@ -162,37 +163,6 @@ export default function Navbar() {
 }
 
 const SubMenu = () => {
-	const corpInfo = [
-		'CEO 인사말',
-		'경영 이념',
-		'회사 연혁',
-		'조직도',
-		'오시는 길',
-	]
-	const newTech = [
-		'철거전용모듈비계',
-		'지하해체특허공법',
-		'기술연구소',
-		'인증 및 특허',
-		'수상실적',
-	]
-	const businessField = [
-		'철거전용모듈비계',
-		'구조물해체공사',
-		'석면해체공사',
-		'토공사',
-		'장비임대',
-		'해체계획서',
-	]
-	const mainPerformance = [
-		'철거전용모듈비계',
-		'구조물해체공사',
-		'석면해체공사',
-		'토공사',
-	]
-	const community = ['견적문의', '공법소개', '자료실']
-	const submenu = [corpInfo, newTech, businessField, mainPerformance, community]
-
 	return (
 		<motion.div
 			initial={{ height: 0, opacity: 0 }}
@@ -207,12 +177,13 @@ const SubMenu = () => {
 					key={i}
 				>
 					{menu.map((item, i) => (
-						<div
+						<Link
 							className='text-center text-base text-black w-fit mx-4 py-2 cursor-pointer hover:text-[#095693] transition-colors duration-300'
 							key={i}
+							href={item.navLink}
 						>
-							{item}
-						</div>
+							{item.title}
+						</Link>
 					))}
 				</div>
 			))}
