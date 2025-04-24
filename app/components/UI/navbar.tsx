@@ -34,7 +34,7 @@ export default function Navbar() {
 			{/* 데스크톱 메뉴 */}
 			<div className='hidden lg:flex text-xl items-center'>
 				<Link
-					href='/about'
+					href='/corpinfo/1'
 					className={linkClassname}
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
@@ -42,7 +42,7 @@ export default function Navbar() {
 					회사 소개
 				</Link>
 				<Link
-					href='/about'
+					href='/newtech/1'
 					className={linkClassname}
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
@@ -50,7 +50,7 @@ export default function Navbar() {
 					사업분야
 				</Link>
 				<Link
-					href='/dashboard'
+					href='/businessfield/1'
 					className={linkClassname}
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
@@ -58,7 +58,7 @@ export default function Navbar() {
 					주요실적
 				</Link>
 				<Link
-					href='/location'
+					href='/mainperformance/1'
 					className={linkClassname}
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
@@ -66,7 +66,7 @@ export default function Navbar() {
 					커뮤니티
 				</Link>
 				<Link
-					href='/contact'
+					href='/community/1'
 					className={linkClassname}
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}

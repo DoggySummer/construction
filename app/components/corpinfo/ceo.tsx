@@ -21,16 +21,7 @@ const CEOPage = () => {
 				height={1024}
 				className='contentSize h-100 object-cover rounded-lg'
 			/>
-			<div className='flex gap-4 contentSize mb-10'>
-				<div className='flex flex-col flex-1/2'>
-					<div className='text-base'>
-						사람과 환경이 조화를 이루고 개발과 보존이 조화를 이루는 세상
-					</div>
-					<div className='text-3xl'>
-						주식회사{' '}
-						<span className='text-primary font-semibold'>신의환경</span>
-					</div>
-				</div>
+			<div className='flex gap-4 contentSize my-10'>
 				<div className='flex flex-col flex-1/2'>
 					<div className='text-2xl font-bold pb-3'>
 						전문성과 신뢰성을 갖춘 해체 및 폐기물 처리
@@ -38,6 +29,8 @@ const CEOPage = () => {
 					<div className='text-5xl font-bold mb-10'>
 						<span className='text-primary'>신의환경</span>에 맡겨주세요.
 					</div>
+				</div>
+				<div className='flex flex-col flex-1/2'>
 					{text.map((item, i) => {
 						return (
 							<div className='text-base pb-6' key={i}>
