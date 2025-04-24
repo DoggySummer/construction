@@ -6,6 +6,7 @@ import suitImage from '@/public/suit.png'
 import TabMenu from '@/app/components/UI/tabMenu'
 import { corpInfo } from '@/app/constants/constants'
 import Map from '@/app/components/corpinfo/map'
+import CEOPage from '@/app/components/corpinfo/ceo'
 
 const CorpPage = () => {
 	const params = useParams()
@@ -14,6 +15,7 @@ const CorpPage = () => {
 		<div>
 			<ImageLine image={suitImage} title='회사소개' subTitle='ㅇㅇㅇ' />
 			<TabMenu items={tabItems} />
+			{params.id === '1' && <CEOPage />}
 			{params.id === '5' && <Map />}
 		</div>
 	)

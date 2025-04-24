@@ -19,7 +19,6 @@ const Landing = () => {
 }
 
 const LandingPC = () => {
-	const [isTypingDone, setIsTypingDone] = useState(false)
 	return (
 		<div className='h-screen'>
 			<video
