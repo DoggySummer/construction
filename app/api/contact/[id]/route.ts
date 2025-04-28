@@ -2,12 +2,10 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb'
 import { NextResponse } from 'next/server'
 
-export async function GET(
-	request: Request,
-	{ params }: { params: { id: string | string[] } }
-) {
+export async function GET(request: Request) {
 	try {
-		const id = params.id
+		const url = new URL(request.url)
+		const id = url.pathname.split('/').pop()
 		const client = new DynamoDBClient({
 			region: process.env.NEXT_PUBLIC_AWS_REGION!,
 			credentials: {
