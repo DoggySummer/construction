@@ -4,10 +4,10 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
 	request: Request,
-	{ params }: { params: { id: string } }
+	{ params }: { params: { id: string | string[] } }
 ) {
 	try {
-		const id = await params.id
+		const id = params.id
 		const client = new DynamoDBClient({
 			region: process.env.NEXT_PUBLIC_AWS_REGION!,
 			credentials: {
