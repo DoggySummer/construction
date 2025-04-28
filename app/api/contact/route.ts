@@ -1,69 +1,131 @@
-// app/api/contact/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import AWS from 'aws-sdk'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import {
+	ScanCommand,
+	DynamoDBDocumentClient,
+	PutCommand,
+} from '@aws-sdk/lib-dynamodb'
 
-AWS.config.update({
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-	region: process.env.AWS_REGION,
-})
-
-const ses = new AWS.SES({ apiVersion: '2010-12-01' })
-
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
 	try {
-		console.log('SES_TO_EMAIL:', process.env.SES_TO_EMAIL)
-		const formData = await req.formData()
+		const formData = await request.formData()
+
+		const title = formData.get('title') as string
 		const name = formData.get('name') as string
 		const email = formData.get('email') as string
-		const message = formData.get('message') as string
+		const content = formData.get('content') as string
 		const file = formData.get('file') as File | null
 
-		let attachmentPart = ''
-		if (file) {
-			const buffer = Buffer.from(await file.arrayBuffer())
-			const content = buffer.toString('base64')
-
-			attachmentPart = `
---NextPart
-Content-Type: ${file.type}; name="${file.name}"
-Content-Disposition: attachment; filename="${file.name}"
-Content-Transfer-Encoding: base64
-
-${content}`
+		const key = `uploads/${Date.now()}-${file?.name}`
+		if (!file) {
+			return NextResponse.json({ error: '파일이 없습니다.' }, { status: 400 })
 		}
 
-		const rawMessage = `From: ${process.env.SES_FROM_EMAIL}
-To: ${process.env.SES_TO_EMAIL}
-Subject: [문의사항] 웹사이트 문의가 도착했습니다
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="NextPart"
-
---NextPart
-Content-Type: text/plain; charset="UTF-8"
-
-이름: ${name}
-이메일: ${email}
-
-문의 내용:
-${message}
-${attachmentPart}
---NextPart--`
-
-		const params = {
-			RawMessage: {
-				Data: Buffer.from(rawMessage),
+		// File을 Buffer로 변환
+		const fileBuffer = Buffer.from(await file.arrayBuffer())
+		// 1. S3에 파일 업로드
+		const s3Client = new S3Client({
+			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			credentials: {
+				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
 			},
-			Source: process.env.SES_FROM_EMAIL!,
+		})
+		const uploadParams = new PutObjectCommand({
+			Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME!,
+			Key: key,
+			Body: fileBuffer,
+			ContentType: file.type,
+		})
+
+		await s3Client.send(uploadParams)
+		console.log('s3진행')
+		const imageUrl = `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${key}`
+
+		// 2. DynamoDB에 데이터 저장
+		const client = new DynamoDBClient({
+			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			credentials: {
+				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+			},
+		})
+		const docClient = DynamoDBDocumentClient.from(client)
+		const timestamp = new Date().toISOString()
+		const params = {
+			TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME!, // 환경 변수에서 테이블 이름 가져오기
+			Item: {
+				id: Date.now().toString(), // 고유 ID
+				title: title,
+				content: content,
+				name: name,
+				email: email,
+				imageUrl: imageUrl,
+				createdAt: timestamp,
+			},
+		}
+		console.log(params)
+		try {
+			const data = await docClient.send(new PutCommand(params))
+			console.log(data)
+		} catch (err) {
+			console.error(err)
 		}
 
-		const result = await ses.sendRawEmail(params).promise()
-
-		return NextResponse.json({ success: true, messageId: result.MessageId })
-	} catch (error: any) {
-		console.error('SES Error:', error)
+		return NextResponse.json({
+			success: true,
+			data: {
+				id: params.Item.id,
+				title,
+				content,
+				name,
+				email,
+				imageUrl: imageUrl,
+				createdAt: timestamp,
+			},
+		})
+	} catch (error) {
+		console.error(
+			'파일 업로드 실패:',
+			error instanceof Error ? error.message : error
+		)
 		return NextResponse.json(
-			{ success: false, error: error.message },
+			{ error: '파일 업로드에 실패했습니다.' },
+			{ status: 500 }
+		)
+	}
+}
+
+export async function GET() {
+	try {
+		const client = new DynamoDBClient({
+			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			credentials: {
+				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+			},
+		})
+
+		const docClient = DynamoDBDocumentClient.from(client)
+
+		const command = new ScanCommand({
+			TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME!,
+		})
+
+		const response = await docClient.send(command)
+
+		return NextResponse.json({
+			success: true,
+			data: response.Items,
+		})
+	} catch (error) {
+		console.error(
+			'데이터 조회 실패:',
+			error instanceof Error ? error.message : error
+		)
+		return NextResponse.json(
+			{ error: '데이터 조회에 실패했습니다.' },
 			{ status: 500 }
 		)
 	}

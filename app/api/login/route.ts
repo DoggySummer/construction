@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
 				{ status: 400 }
 			)
 		}
-
+		console.log(process.env.NEXT_PUBLIC_ADMIN_NAME)
+		console.log(process.env.NEXT_PUBLIC_ADMIN_PASSWORD)
 		// 3. 사용자 인증
 		if (
 			username === process.env.NEXT_PUBLIC_ADMIN_NAME &&
@@ -49,7 +50,6 @@ export async function POST(request: NextRequest) {
 			const cookieStore = await cookies()
 			cookieStore.set('auth-token', token, {
 				httpOnly: true,
-				secure: process.env.NODE_ENV === 'production',
 				sameSite: 'strict',
 				maxAge: 60 * 60 * 24 * 7, // 7일
 				path: '/',

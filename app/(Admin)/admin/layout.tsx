@@ -4,7 +4,8 @@ import '@/app/globals.css'
 import { Noto_Sans_KR } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { RiDashboardLine, RiSettings4Line } from 'react-icons/ri'
+import { RiSettings4Line } from 'react-icons/ri'
+import { MdOutlineQuestionAnswer } from 'react-icons/md'
 
 const notoSansKR = Noto_Sans_KR({
 	weight: ['400', '500', '700'],
@@ -36,13 +37,13 @@ export default function AdminLayout({
 							<ul className='space-y-2'>
 								<li>
 									<Link
-										href='/admin/dashboard'
+										href='/admin/question'
 										className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActivePath(
-											'/admin/dashboard'
+											'/admin/question'
 										)}`}
 									>
-										<RiDashboardLine className='text-xl' />
-										<span className='font-medium'>대시보드</span>
+										<MdOutlineQuestionAnswer className='text-xl' />
+										<span className='font-medium'>문의사항</span>
 									</Link>
 								</li>
 								<li>

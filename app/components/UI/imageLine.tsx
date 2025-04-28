@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 
 type ImageLineProps = {
 	title: string
-	subTitle: string
 	image: StaticImageData
 }
 

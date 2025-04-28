@@ -12,6 +12,9 @@ const notoSansKR = Noto_Sans_KR({
 export const metadata: Metadata = {
 	title: '신의환경',
 	description: '신의환경 웹사이트',
+	icons: {
+		icon: '/favicon.ico',
+	},
 }
 
 export default function RootLayout({
