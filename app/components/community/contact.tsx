@@ -189,7 +189,7 @@ const ContactPage = () => {
 				<div className='mt-6'>
 					<button
 						type='submit'
-						className='w-full bg-indigo-600 text-white rounded-md py-2 px-4 hover:bg-indigo-700 focus:outline-none'
+						className='w-full bg-primary text-white rounded-md py-2 px-4 focus:outline-none'
 					>
 						제출하기
 					</button>

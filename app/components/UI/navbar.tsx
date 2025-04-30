@@ -20,15 +20,27 @@ export default function Navbar() {
 
 	return (
 		<div
-			className={`absolute top-0 left-0 w-full lg:pl-30 pl-10 pr-10 pt-14 z-30 flex justify-between items-center transition-[background-color] duration-300 ${navbarStyle} ${
+			className={`absolute top-0 left-0 w-full lg:pl-10 pl-10 pr-20 pt-14 z-30 flex justify-between items-center transition-[background-color] duration-300 ${navbarStyle} ${
 				pathname === '/' && !subMenuOpen ? 'text-white' : 'text-black'
 			}`}
 		>
 			<Link
 				href='/'
-				className='text-3xl font-medium cursor-pointer flex items-center gap-3 pb-10'
+				className='text-3xl font-medium cursor-pointer flex items-center gap-1 pb-10'
 			>
-				<Image src={logo} width={36} height={36} alt='logo' /> |주|신의환경
+				<Image src={logo} width={36} height={36} alt='logo' />
+				<div
+					className={`w-[3px] ml-2 h-6 ${
+						pathname === '/' && !subMenuOpen ? 'bg-white' : 'bg-black'
+					}`}
+				/>
+				주
+				<div
+					className={`w-[3px] h-6 mr-1 ${
+						pathname === '/' && !subMenuOpen ? 'bg-white' : 'bg-black'
+					}`}
+				/>
+				신의환경
 			</Link>
 
 			{/* 데스크톱 메뉴 */}
@@ -47,7 +59,7 @@ export default function Navbar() {
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
 				>
-					사업분야
+					신기술소개
 				</Link>
 				<Link
 					href='/businessfield/1'
@@ -55,7 +67,7 @@ export default function Navbar() {
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
 				>
-					주요실적
+					사업분야
 				</Link>
 				<Link
 					href='/mainperformance/1'
@@ -63,7 +75,7 @@ export default function Navbar() {
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
 				>
-					커뮤니티
+					주요실적
 				</Link>
 				<Link
 					href='/community/1'
@@ -71,7 +83,7 @@ export default function Navbar() {
 					onMouseEnter={() => setSubMenuOpen(true)}
 					onMouseLeave={() => setSubMenuOpen(false)}
 				>
-					견적문의
+					커뮤니티
 				</Link>
 				<div
 					onMouseEnter={() => setSubMenuOpen(true)}
@@ -169,7 +181,7 @@ const SubMenu = () => {
 			animate={{ height: '260px', opacity: 1 }}
 			exit={{ height: 0, opacity: 0 }}
 			transition={{ duration: 0.1 }}
-			className='absolute top-30 left-0 w-full bg-white pr-10 flex justify-end transition-all overflow-hidden border-t border-t-gray-300'
+			className='absolute top-30 left-0 w-full bg-white pr-20 flex justify-end transition-all overflow-hidden border-t border-t-gray-300'
 		>
 			{submenu.map((menu, i) => (
 				<div

@@ -1,36 +1,40 @@
 import Image from 'next/image'
 import Title from '../UI/title'
-import shakehands from '@/public/shakehands.png'
+import logoLeaf from '@/public/logo-leaf.png'
 
+const title =
+	'신의환경은 모듈형 비계시스템을 바탕으로 친환경적이고 안전성을 겸비하여 경직된 해체공사 시장을 미래지향적으로 진보해 나가고 있습니다'
 const text = [
-	'(주)신의환경은 창업 이래 장인 정신을 바탕으로 꾸준한 발전을 거듭하여 왔습니다. 당사는 변화를 두려워하지 않고 지속 성장 가능한 최고의 전문건설사로 도약하기 위해 최선의 노력을 기울이고 있으며, 이를 위해 기존 주력사업에 총력을 기울일 뿐만 아니라 신성장 사업 진출을 위한 선택적 전략 개발에 힘쓰고 있습니다.',
+	'저희 (주)신의환경은 2009년에 설립되어 비계구조물해체업, 토공사업, 석면해체제거업, 비계제조업을 전문으로 하는 기업입니다. 다년간의 현장 경험을 바탕으로, 각 분야에서 최고 수준의 기술력과 안전성을 자랑하며 지속적으로 발전하고 있습니다',
+	'(주)신의환경 임직원 모두는 철거 현장에서 발생할 수 있는 안전사고를 예방하기 위한 연구개발에 끊임없이 매진하고 있으며, 현장에서 실제로 활용 가능한 기술과 시스템을 구현하여, 고객에게 최고의 안전과 품질을 제공하고 있습니다.',
 
-	'지금 이 시간에도 저를 비롯한 (주)신의환경의 임직원 모두는 최고의 시공과 서비스를 창출하며 산업 발전과 인류 사회에 기여한다는 자부심으로 혁신과 도전을 지속하며 작은 일에 정성을 다하는 기업가 정신으로 고객의 신뢰에 더욱 보답하고자 합니다.',
-
-	'동종업계 최고 모범이 되도록 계속 노력할 것을 약속드리며, 끊임없는 지도 편달과 관심을 가져주시고 모든 분의 앞날에 무궁한 발전이 있기를 기원합니다.',
+	'신뢰와 믿음을 바탕으로 안전과 환경을 생각하는 기업으로 도약하겠습니다.',
+	'대표이사 양 희 제',
 ]
 
 const CEOPage = () => {
 	return (
 		<div>
 			<Title title='CEO 인사말' />
-			<Image
-				src={shakehands}
-				alt='ceo'
-				width={1536}
-				height={1024}
-				className='contentSize h-100 object-cover rounded-lg'
-			/>
+
 			<div className='flex gap-4 contentSize my-10'>
-				<div className='flex flex-col flex-1/2'>
-					<div className='text-2xl font-bold pb-3'>
-						전문성과 신뢰성을 갖춘 해체 및 폐기물 처리
-					</div>
-					<div className='text-5xl font-bold mb-10'>
-						<span className='text-primary'>신의환경</span>에 맡겨주세요.
+				<div className='flex flex-col flex-1/2 items-center justify-center'>
+					<Image
+						src={logoLeaf}
+						alt='logo'
+						width={253}
+						height={231}
+						className='w-1/3 object-cover'
+					/>
+					<div className='text-6xl mt-10 font-bold flex items-center text-primary justify-center'>
+						<div className='w-[5px] h-8 mt-1 bg-primary' />
+						<span className='mx-1'>주</span>
+						<div className='w-[5px] h-8 mt-1 bg-primary mr-1' />
+						신의환경
 					</div>
 				</div>
-				<div className='flex flex-col flex-1/2'>
+				<div className='flex flex-col flex-1/2 items-start'>
+					<div className='font-semibold text-xl pb-6'>{title}</div>
 					{text.map((item, i) => {
 						return (
 							<div className='text-base pb-6' key={i}>

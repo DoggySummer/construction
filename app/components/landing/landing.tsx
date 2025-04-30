@@ -33,11 +33,11 @@ const LandingPC = () => {
 			</video>
 			<div className='absolute top-0 left-0 w-full h-full bg-black/70'></div>
 			<div className='absolute top-1/3 left-10 text-white'>
-				<h1 className='text-4xl font-extrabold pb-10'>We Create Safety</h1>
-				<h1 className='text-4xl font-normal pb-10'>
+				<h1 className='text-5xl font-extrabold pb-10'>We Create Safety</h1>
+				<h1 className='text-5xl font-normal pb-10'>
 					신뢰를 바탕으로, 안전을 약속하는 기업
 				</h1>
-				<h1 className='text-4xl font-normal'>(주)신의환경</h1>
+				<h1 className='text-5xl font-normal'>(주)신의환경</h1>
 			</div>
 		</div>
 	)
