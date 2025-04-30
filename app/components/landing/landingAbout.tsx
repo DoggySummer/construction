@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Title from '../UI/title'
 import Image from 'next/image'
-
+import { useRouter } from 'next/navigation'
 import main1 from '@/public/shakehands.png'
 import main2 from '@/public/main2.jpeg'
 import main3 from '@/public/main3.png'
@@ -23,11 +23,15 @@ const LandingAbout = () => {
 }
 
 const LandingAboutDesktop = () => {
+	const router = useRouter()
 	return (
 		<>
 			<Title title={'주요사업'} />
 			<div className='contentSize flex justify-between'>
-				<div className='flex flex-col w-1/4 gap-4 mb-10'>
+				<div
+					className='flex flex-col w-1/4 gap-4 mb-10 cursor-pointer'
+					onClick={() => router.push('/newtech/1')}
+				>
 					<Image
 						src={main1}
 						alt='main1'
@@ -38,7 +42,10 @@ const LandingAboutDesktop = () => {
 					<div className='text-2xl font-bold'>신기술 소개</div>
 					<ArrowBtn content='확인하기' navLink='/newtech/1' />
 				</div>
-				<div className='flex flex-col w-1/4 gap-4 mb-10'>
+				<div
+					className='flex flex-col w-1/4 gap-4 mb-10 cursor-pointer'
+					onClick={() => router.push('/businessfield/1')}
+				>
 					<Image
 						src={main2}
 						alt='main1'
@@ -49,7 +56,10 @@ const LandingAboutDesktop = () => {
 					<div className='text-2xl font-bold'>사업분야</div>
 					<ArrowBtn content='확인하기' navLink='/newtech/1' />
 				</div>
-				<div className='flex flex-col w-1/4 gap-4 mb-10'>
+				<div
+					className='flex flex-col w-1/4 gap-4 mb-10 cursor-pointer'
+					onClick={() => router.push('/mainperformance/1')}
+				>
 					<Image
 						src={main3}
 						alt='main1'

@@ -26,10 +26,10 @@ const CEOPage = () => {
 						height={231}
 						className='w-1/3 object-cover'
 					/>
-					<div className='text-6xl mt-10 font-bold flex items-center text-primary justify-center'>
-						<div className='w-[5px] h-8 mt-1 bg-primary' />
+					<div className='text-6xl mt-10 font-bold flex items-center leading-none text-primary justify-center'>
+						<div className='w-[5px] h-[calc(100%-5px)] mt-1 bg-primary' />
 						<span className='mx-1'>주</span>
-						<div className='w-[5px] h-8 mt-1 bg-primary mr-1' />
+						<div className='w-[5px] h-[calc(100%-5px)] mt-1 bg-primary mr-1' />
 						신의환경
 					</div>
 				</div>

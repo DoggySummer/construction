@@ -4,16 +4,16 @@ import ImageLine from '@/app/components/UI/imageLine'
 import { useParams } from 'next/navigation'
 import suitImage from '@/public/suit.png'
 import TabMenu from '@/app/components/UI/tabMenu'
-import { newTech } from '@/app/constants/constants'
+import { mainPerformance } from '@/app/constants/constants'
 
-const NewTechPage = () => {
+const PerformancePage = () => {
 	const params = useParams()
-	const tabItems = newTech
+	const tabItems = mainPerformance
 	return (
 		<div>
-			<ImageLine image={suitImage} title='신기술 소개' />
+			<ImageLine image={suitImage} title='주요실적' />
 			<TabMenu items={tabItems} />
 		</div>
 	)
 }
-export default NewTechPage
+export default PerformancePage

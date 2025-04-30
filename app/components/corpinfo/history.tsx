@@ -2,25 +2,18 @@ import Image from 'next/image'
 import Title from '../UI/title'
 import Suit from '@/public/suit.png'
 
-const detailExample = [
+const detailedContent = [
 	{
-		year: '2024',
+		year: '2025',
 		detail: [
 			{
-				date: '2024.12',
+				date: '2025.01',
 				content: '친환경 해체공법 특허 취득',
 			},
 			{
-				date: '2024.09',
-				content: '2024년 우수 건설업체 표창 (국토교통부)',
-			},
-			{
-				date: '2024.06',
-				content: '스마트 건설기술 연구소 설립',
-			},
-			{
-				date: '2024.03',
-				content: '건설신기술 제2024-xx호 지정',
+				date: '2025.02',
+				content:
+					'건축물 해체 현장에 적용되는 모듈형 비계 설치 공법 국토부 건설신기술지정 (제 1014호)',
 			},
 		],
 	},
@@ -28,41 +21,66 @@ const detailExample = [
 		year: '2023',
 		detail: [
 			{
-				date: '2023.11',
-				content: 'ISO 14001(환경경영시스템) 인증 획득',
-			},
-			{
-				date: '2023.08',
-				content: '대형 구조물 해체 전문업체 등록',
-			},
-			{
-				date: '2023.05',
-				content: '자본금 50억원 증자',
-			},
-			{
 				date: '2023.02',
-				content: '친환경 해체공사 우수사례 대상 수상',
+				content: '토목사업 취득',
+			},
+			{
+				date: '2023.04',
+				content: '주식회사 신의환경 기업부설연구소 설립',
+			},
+			{
+				date: '2023.06',
+				content: '폐기물처리(재활용)[폐전선, 고철] 등 신고',
+			},
+			{
+				date: '2023.12',
+				content:
+					'방호부재를 가지는 모듈형 비계시스템 특허등록 (제 10-2619452호)',
 			},
 		],
 	},
 	{
-		year: '2022',
+		year: '2021',
 		detail: [
 			{
-				date: '2022.12',
-				content: '기업부설 연구소 설립',
+				date: '2021.12',
+				content: '대전 홈플러스(둔산점) 건물 및 공작물 철거공사 수주',
 			},
+		],
+	},
+	{
+		year: '2018',
+		detail: [
 			{
-				date: '2022.09',
-				content: '건설업 종합시공능력평가 상위 10% 달성',
+				date: '2018.09',
+				content: '부평 이마트 철거공사 수주',
 			},
+		],
+	},
+	{
+		year: '2016',
+		detail: [
 			{
-				date: '2022.06',
-				content: '지반개량 전문업체 등록',
+				date: '2016.01',
+				content: 'KT 부천소사 해체공사 수주',
 			},
+		],
+	},
+	{
+		year: '2010',
+		detail: [
 			{
-				date: '2022.03',
-				content: '철거해체공사업 면허 취득',
+				date: '2010.01',
+				content: '비계구조물해체업 획득\n석면해체제거업 획득',
+			},
+		],
+	},
+	{
+		year: '2009',
+		detail: [
+			{
+				date: '2009.12',
+				content: '주식회사 신의환경 설립',
 			},
 		],
 	},
@@ -74,7 +92,7 @@ const History = () => {
 			<Title title='회사연혁' />
 			<div className='flex w-full justify-between gap-4'>
 				<div className='flex flex-col w-1/2'>
-					{detailExample.map((item, i) => {
+					{detailedContent.map((item, i) => {
 						return (
 							<HistoryContent key={i} year={item.year} detail={item.detail} />
 						)
@@ -114,9 +132,12 @@ const HistoryContent = (props: HistoryContentProps) => {
 			</div>
 			{detail.map((item, i) => {
 				return (
-					<div key={i} className='mt-2 pb-3 border-b border-gray-500'>
-						<span className='mr-5'>{item.date}</span>
-						<span>{item.content}</span>
+					<div
+						key={i}
+						className='mt-2 pb-3 border-b border-gray-500 flex justify-start'
+					>
+						<div className='mr-5 w-15 '>{item.date}</div>
+						<div className='pr-3 whitespace-pre-line'>{item.content}</div>
 					</div>
 				)
 			})}
