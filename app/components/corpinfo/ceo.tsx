@@ -17,7 +17,7 @@ const CEOPage = () => {
 		<div>
 			<Title title='CEO 인사말' />
 
-			<div className='flex gap-4 contentSize my-10'>
+			<div className='flex gap-4 contentSize my-10 break-keep'>
 				<div className='flex flex-col flex-1/2 items-center justify-center'>
 					<Image
 						src={logoLeaf}

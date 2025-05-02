@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import secondImage from '@/public/building.jpg'
+import secondImage from '@/public/biz_2.png'
 
 const Second = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center'>
+		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
 			<Image src={secondImage} alt='first' className='w-1/3 object-cover' />
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>구조물해체공사</h1>
@@ -13,10 +13,10 @@ const Second = () => {
 				</div>
 				<div className=''>
 					신의환경은 다년간의 시공 경험과 기술력을 바탕으로,{' '}
-					<span className='text-primary font-semibold'>
+					<div className='text-primary font-semibold '>
 						고층 건축물, 대형마트, 산업시설, 재개발 지구 등 다양한 해체
 						프로젝트를 안전하고 정밀하게 수행해 온 철거 전문 기업
-					</span>
+					</div>
 					입니다.
 				</div>
 				<div className='my-4'>

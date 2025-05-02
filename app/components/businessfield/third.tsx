@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import thirdImage from '@/public/biz_third.jpeg'
+import thirdImage from '@/public/biz_3.jpeg'
 
 const Third = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center'>
+		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
 			<Image src={thirdImage} alt='first' className='w-1/3 object-cover' />
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>석면해체공사</h1>

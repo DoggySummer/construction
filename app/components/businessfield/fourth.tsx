@@ -1,10 +1,14 @@
 import Image from 'next/image'
-import thirdImage from '@/public/biz_fourth.jpeg'
+import thirdImage from '@/public/biz_4.png'
 
 const Fourth = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center'>
-			<Image src={thirdImage} alt='first' className='w-1/3 object-cover' />
+		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
+			<Image
+				src={thirdImage}
+				alt='third'
+				className='w-1/3 object-cover object-top'
+			/>
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>토공사</h1>
 				<div className='text-sm'>Excavation Work</div>
@@ -33,6 +37,34 @@ const Fourth = () => {
 						현장 조건에 맞는 맞춤형 솔루션
 					</span>
 					을 제시하며,
+				</div>
+				<div className='mb-4'>
+					<span className='font-semibold text-primary'>
+						공사 기간 단축, 비용 효율, 안전 확보
+					</span>
+					를 동시에 만족시키는 시공을 약속드립니다.
+				</div>
+				<div>
+					<span className='font-semibold text-primary'>
+						토공은 기초입니다. 기초가 흔들리면 모든 것이 흔들립니다.
+					</span>
+				</div>
+				<div>
+					신의환경은{' '}
+					<span className='font-semibold text-primary'>
+						기초부터 신뢰를 다지는 시공 파트너
+					</span>
+					로서,
+				</div>
+				<div className='mb-4'>
+					철저한 현장관리와 품질 중심의 시공을 통해{' '}
+					<span className='font-semibold text-primary'>든든한 기반</span>을
+					만들어드립니다.
+				</div>
+				<div>
+					<span className='font-semibold text-primary'>
+						땅을 다지는 일이 곧, 신뢰를 세우는 일입니다.
+					</span>
 				</div>
 			</div>
 		</div>

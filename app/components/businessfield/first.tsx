@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import firstImage from '@/public/biz_first.jpeg'
+import firstImage from '@/public/biz_1.png'
 
 const First = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center'>
+		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
 			<Image src={firstImage} alt='first' className='w-1/3 object-cover' />
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>철거전용모듈비계</h1>
