@@ -3,11 +3,11 @@ import thirdImage from '@/public/biz_4.png'
 
 const Fourth = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
+		<div className='flex contentSize mt-10 gap-20 mb-10 justify-center break-keep'>
 			<Image
 				src={thirdImage}
 				alt='third'
-				className='w-1/3 object-cover object-top'
+				className='w-100 h-100 object-cover '
 			/>
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>토공사</h1>

@@ -26,14 +26,14 @@ export async function POST(request: NextRequest) {
 		const fileBuffer = Buffer.from(await file.arrayBuffer())
 		// 1. S3에 파일 업로드
 		const s3Client = new S3Client({
-			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			region: process.env.AWS_REGION!,
 			credentials: {
-				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
 			},
 		})
 		const uploadParams = new PutObjectCommand({
-			Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME!,
+			Bucket: process.env.AWS_S3_BUCKET_NAME!,
 			Key: key,
 			Body: fileBuffer,
 			ContentType: file.type,
@@ -41,22 +41,23 @@ export async function POST(request: NextRequest) {
 
 		await s3Client.send(uploadParams)
 		console.log('s3진행')
-		const imageUrl = `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${key}`
+		const imageUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`
 
 		// 2. DynamoDB에 데이터 저장
 		const client = new DynamoDBClient({
-			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			region: process.env.AWS_REGION!,
 			credentials: {
-				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
 			},
 		})
 		const docClient = DynamoDBDocumentClient.from(client)
 		const timestamp = new Date().toISOString()
 		const params = {
-			TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME!, // 환경 변수에서 테이블 이름 가져오기
+			TableName: process.env.DYNAMODB_TABLE_NAME!, // 환경 변수에서 테이블 이름 가져오기
 			Item: {
 				id: Date.now().toString(), // 고유 ID
+				subTable: 'contact',
 				title: title,
 				content: content,
 				name: name,
@@ -100,17 +101,17 @@ export async function POST(request: NextRequest) {
 export async function GET() {
 	try {
 		const client = new DynamoDBClient({
-			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			region: process.env.AWS_REGION!,
 			credentials: {
-				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
 			},
 		})
 
 		const docClient = DynamoDBDocumentClient.from(client)
 
 		const command = new ScanCommand({
-			TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME!,
+			TableName: process.env.DYNAMODB_TABLE_NAME!,
 		})
 
 		const response = await docClient.send(command)

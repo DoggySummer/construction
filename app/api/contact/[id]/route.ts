@@ -7,19 +7,20 @@ export async function GET(request: Request) {
 		const url = new URL(request.url)
 		const id = url.pathname.split('/').pop()
 		const client = new DynamoDBClient({
-			region: process.env.NEXT_PUBLIC_AWS_REGION!,
+			region: process.env.AWS_REGION!,
 			credentials: {
-				accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
 			},
 		})
 
 		const docClient = DynamoDBDocumentClient.from(client)
 
 		const command = new GetCommand({
-			TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME!,
+			TableName: process.env.DYNAMODB_TABLE_NAME!,
 			Key: {
 				id: id,
+				subTable: 'contact',
 			},
 		})
 

@@ -3,8 +3,12 @@ import fifthImage from '@/public/biz_5.jpg'
 
 const Fifth = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
-			<Image src={fifthImage} alt='first' className='w-1/3 object-cover' />
+		<div className='flex contentSize mt-10 gap-20 mb-10 justify-center break-keep'>
+			<Image
+				src={fifthImage}
+				alt='first'
+				className='w-100 h-100 object-cover '
+			/>
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>장비임대</h1>
 				<div className='text-sm'>Equipment Rental</div>

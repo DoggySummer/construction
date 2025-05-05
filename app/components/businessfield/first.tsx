@@ -3,8 +3,12 @@ import firstImage from '@/public/biz_1.png'
 
 const First = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-10 mb-10 justify-center break-keep'>
-			<Image src={firstImage} alt='first' className='w-1/3 object-cover' />
+		<div className='flex contentSize mt-10 gap-20 mb-10 justify-center break-keep'>
+			<Image
+				src={firstImage}
+				alt='first'
+				className='w-100 h-100 object-cover '
+			/>
 			<div className='flex flex-col w-1/2'>
 				<h1 className='text-3xl font-bold'>철거전용모듈비계</h1>
 				<div className='text-sm'>Demolition-Specific Modular Scaffolding</div>

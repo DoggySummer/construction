@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { RiSettings4Line } from 'react-icons/ri'
 import { MdOutlineQuestionAnswer } from 'react-icons/md'
+import { IoNewspaperOutline } from 'react-icons/io5'
 
 const notoSansKR = Noto_Sans_KR({
 	weight: ['400', '500', '700'],
@@ -48,13 +49,13 @@ export default function AdminLayout({
 								</li>
 								<li>
 									<Link
-										href='/admin/settings'
+										href='/admin/mainperformance'
 										className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActivePath(
-											'/admin/settings'
+											'/admin/mainperformance'
 										)}`}
 									>
-										<RiSettings4Line className='text-xl' />
-										<span className='font-medium'>설정</span>
+										<IoNewspaperOutline className='text-xl' />
+										<span className='font-medium'>주요실적</span>
 									</Link>
 								</li>
 							</ul>

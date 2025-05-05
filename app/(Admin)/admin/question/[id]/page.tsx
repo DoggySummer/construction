@@ -47,14 +47,46 @@ const Dashboard = () => {
 				</div>
 
 				<div className='flex'>
-					<div className='w-32 font-semibold text-gray-600'>이미지</div>
+					<div className='w-32 font-semibold text-gray-600'>파일</div>
 					<div className='flex-1 text-gray-900 whitespace-pre-line'>
-						<Image
-							src={data.imageUrl}
-							alt='문의 이미지'
-							width={100}
-							height={100}
-						/>
+						{data.imageUrl && (
+							<div className='relative group'>
+								<Image
+									src={data.imageUrl}
+									alt='문의 이미지'
+									width={100}
+									height={100}
+									className='cursor-pointer hover:opacity-80 transition-opacity'
+									onClick={async () => {
+										try {
+											// 파일명 추출 (URL에서 마지막 부분)
+											const fileName = data.imageUrl.split('/').pop() || 'image'
+
+											// 이미지 데이터 가져오기
+											const response = await fetch(data.imageUrl)
+											const blob = await response.blob()
+
+											// Blob URL 생성
+											const blobUrl = window.URL.createObjectURL(blob)
+
+											// 다운로드 링크 생성
+											const link = document.createElement('a')
+											link.href = blobUrl
+											link.download = fileName
+											document.body.appendChild(link)
+											link.click()
+
+											// 정리
+											document.body.removeChild(link)
+											window.URL.revokeObjectURL(blobUrl)
+										} catch (error) {
+											console.error('이미지 다운로드 실패:', error)
+											alert('이미지 다운로드에 실패했습니다.')
+										}
+									}}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

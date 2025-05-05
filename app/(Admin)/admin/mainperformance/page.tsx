@@ -46,12 +46,18 @@ const AdminQuestionnaire = () => {
 	}
 	return (
 		<>
-			<h1 className='text-2xl font-bold mb-4'>문의사항</h1>
+			<h1 className='text-2xl font-bold mb-4'>관리자 대시보드</h1>
 			<PaginationTable
 				columns={columns}
 				data={dataList}
 				onRowClick={handleRowClick}
 			/>
+			<button
+				onClick={() => router.push('/admin/mainperformance/add')}
+				className='mb-4 px-4 py-2 bg-primary text-white rounded-lg cursor-pointer flex items-center'
+			>
+				추가하기
+			</button>
 		</>
 	)
 }
