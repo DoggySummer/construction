@@ -1,7 +1,7 @@
 //석면해체공사
 
 const Asbestos = () => {
-	return <div>Asbestossss</div>
+	return <div>Asbestoss</div>
 }
 
 export default Asbestos
