@@ -26,14 +26,14 @@ export async function POST(request: NextRequest) {
 		const fileBuffer = Buffer.from(await file.arrayBuffer())
 		// 1. S3에 파일 업로드
 		const s3Client = new S3Client({
-			region: process.env.AWS_REGION!,
+			region: process.env_REGION!,
 			credentials: {
-				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env_ACCESS_KEY_ID!,
+				secretAccessKey: process.env_SECRET_ACCESS_KEY!,
 			},
 		})
 		const uploadParams = new PutObjectCommand({
-			Bucket: process.env.AWS_S3_BUCKET_NAME!,
+			Bucket: process.env_S3_BUCKET_NAME!,
 			Key: key,
 			Body: fileBuffer,
 			ContentType: file.type,
@@ -41,14 +41,14 @@ export async function POST(request: NextRequest) {
 
 		await s3Client.send(uploadParams)
 		console.log('s3진행')
-		const imageUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`
+		const imageUrl = `https://${process.env_S3_BUCKET_NAME}.s3.${process.env_REGION}.amazonaws.com/${key}`
 
 		// 2. DynamoDB에 데이터 저장
 		const client = new DynamoDBClient({
-			region: process.env.AWS_REGION!,
+			region: process.env_REGION!,
 			credentials: {
-				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env_ACCESS_KEY_ID!,
+				secretAccessKey: process.env_SECRET_ACCESS_KEY!,
 			},
 		})
 		const docClient = DynamoDBDocumentClient.from(client)
@@ -101,10 +101,10 @@ export async function POST(request: NextRequest) {
 export async function GET() {
 	try {
 		const client = new DynamoDBClient({
-			region: process.env.AWS_REGION!,
+			region: process.env_REGION!,
 			credentials: {
-				accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env_ACCESS_KEY_ID!,
+				secretAccessKey: process.env_SECRET_ACCESS_KEY!,
 			},
 		})
 

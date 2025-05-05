@@ -5,7 +5,7 @@ import { DynamoDBDocumentClient, ScanCommand } from '@aws-sdk/lib-dynamodb'
 export async function GET(request: Request) {
 	const url = new URL(request.url)
 	const id = url.pathname.split('/').pop()
-	const client = new DynamoDBClient({ region: process.env.AWS_REGION })
+	const client = new DynamoDBClient({ region: process.env_REGION })
 	const docClient = DynamoDBDocumentClient.from(client)
 
 	const params = {
