@@ -7,10 +7,10 @@ export async function GET(request: Request) {
 		const url = new URL(request.url)
 		const id = url.pathname.split('/').pop()
 		const client = new DynamoDBClient({
-			region: process.env_REGION!,
+			region: process.env.REGION!,
 			credentials: {
-				accessKeyId: process.env_ACCESS_KEY_ID!,
-				secretAccessKey: process.env_SECRET_ACCESS_KEY!,
+				accessKeyId: process.env.ACCESS_KEY_ID!,
+				secretAccessKey: process.env.SECRET_ACCESS_KEY!,
 			},
 		})
 

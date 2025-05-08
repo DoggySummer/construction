@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 			)
 		}
 
-		const s3Client = new S3Client({ region: process.env_REGION })
+		const s3Client = new S3Client({ region: process.env.REGION })
 
 		// 모든 사진을 배열로 수집
 		const photos = [
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 			const key = `uploads/${Date.now()}-${type}-${file!.name}`
 
 			const uploadParams = new PutObjectCommand({
-				Bucket: process.env_S3_BUCKET_NAME!,
+				Bucket: process.env.S3_BUCKET_NAME!,
 				Key: key,
 				Body: fileBuffer,
 				ContentType: file!.type,
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
 			await s3Client.send(uploadParams)
 			return {
 				type,
-				url: `https://${process.env_S3_BUCKET_NAME}.s3.${process.env_REGION}.amazonaws.com/${key}`,
+				url: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.REGION}.amazonaws.com/${key}`,
 			}
 		})
 
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 				.map((photo) => photo.url)
 
 			// 2. DynamoDB에 데이터 저장
-			const client = new DynamoDBClient({ region: process.env_REGION })
+			const client = new DynamoDBClient({ region: process.env.REGION })
 			const docClient = DynamoDBDocumentClient.from(client)
 			const timestamp = new Date().toISOString()
 			const params = {
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: Request) {
-	const client = new DynamoDBClient({ region: process.env_REGION })
+	const client = new DynamoDBClient({ region: process.env.REGION })
 	const docClient = DynamoDBDocumentClient.from(client)
 	const params: ScanCommandInput = {
 		TableName: process.env.DYNAMODB_TABLE_NAME!,
