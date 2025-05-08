@@ -1,28 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useParams } from 'next/navigation'
 import Image from 'next/image'
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale'
-
-interface FormData {
-	performanceType: string
-	title: string
-	constructionStartDate: Date | null
-	constructionEndDate: Date | null
-	primeContractor: string
-	client: string
-	contractAmount: string
-	mainPhoto: File | null
-	subPhoto1?: File | null
-	subPhoto2?: File | null
-	subPhoto3?: File | null
-	subPhoto4?: File | null
-}
-
+import { Performance } from '@/app/constants/type'
 // 한글 금액 단위 변환 함수
 function numberToKorean(num: number) {
 	if (num === 0) return '0 원'
@@ -44,22 +29,62 @@ function numberToKorean(num: number) {
 	return resultString + ' 원'
 }
 
-const Add = () => {
+const PerformanceEdit = () => {
 	const router = useRouter()
-	const [formData, setFormData] = useState<FormData>({
+	const params = useParams()
+	const [formData, setFormData] = useState({
+		id: '',
+		createdAt: '',
+		subTable: '',
 		performanceType: '',
 		title: '',
-		constructionStartDate: null,
-		constructionEndDate: null,
+		constructionStartDate: new Date() as Date | null,
+		constructionEndDate: new Date() as Date | null,
 		primeContractor: '',
-		client: '',
+		clientName: '',
 		contractAmount: '',
-		mainPhoto: null,
-		subPhoto1: null,
-		subPhoto2: null,
-		subPhoto3: null,
-		subPhoto4: null,
+		mainPhoto: '',
+		subPhoto1: '',
+		subPhoto2: '',
+		subPhoto3: '',
+		subPhoto4: '',
+		subPhoto5: '',
 	})
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const response = await fetch(`/api/performance/${params.id}`)
+			const data = await response.json()
+			console.log(data[0])
+
+			// 이미지 URL들을 previewImages에 설정
+			const imageFields = [
+				'mainPhoto',
+				'subPhoto1',
+				'subPhoto2',
+				'subPhoto3',
+				'subPhoto4',
+			]
+			const initialPreviewImages: { [key: string]: string } = {}
+			imageFields.forEach((field) => {
+				if (data[0][field]) {
+					initialPreviewImages[field] = data[0][field]
+				}
+			})
+			setPreviewImages(initialPreviewImages)
+
+			setFormData({
+				...data[0],
+				constructionStartDate: new Date(
+					data[0].constructionStartDate
+				) as Date | null,
+				constructionEndDate: new Date(
+					data[0].constructionEndDate
+				) as Date | null,
+			})
+		}
+		fetchData()
+	}, [params.id])
 
 	const [previewImages, setPreviewImages] = useState<{ [key: string]: string }>(
 		{}
@@ -78,8 +103,11 @@ const Add = () => {
 	}
 
 	const getFileName = (field: string) => {
-		const file = formData[field as keyof FormData] as File | null
-		return file ? file.name : '선택된 파일 없음'
+		const value: any = formData[field as keyof Performance]
+		if (value instanceof File) {
+			return value.name
+		}
+		return '선택된 파일 없음'
 	}
 
 	const handleInputChange = (
@@ -119,19 +147,15 @@ const Add = () => {
 		data.append('performanceType', formData.performanceType)
 		data.append('title', formData.title)
 		data.append('primeContractor', formData.primeContractor)
-		data.append('clientName', formData.client)
+		data.append('clientName', formData.clientName)
 		data.append('contractAmount', formData.contractAmount)
 		data.append(
 			'constructionStartDate',
-			formData.constructionStartDate
-				? formData.constructionStartDate.toISOString()
-				: ''
+			formData.constructionStartDate?.toISOString().split('T')[0] || ''
 		)
 		data.append(
 			'constructionEndDate',
-			formData.constructionEndDate
-				? formData.constructionEndDate.toISOString()
-				: ''
+			formData.constructionEndDate?.toISOString().split('T')[0] || ''
 		)
 		if (formData.mainPhoto) data.append('mainPhoto', formData.mainPhoto)
 		if (formData.subPhoto1) data.append('subPhoto1', formData.subPhoto1)
@@ -155,6 +179,22 @@ const Add = () => {
 		} catch (error) {
 			console.error(error)
 			alert('에러가 발생했습니다.')
+		}
+	}
+
+	const handleDelete = async () => {
+		const isConfirmed = confirm('정말 삭제하시겠습니까?')
+
+		if (isConfirmed) {
+			const res = await fetch(`/api/performance/${params.id}`, {
+				method: 'DELETE',
+			})
+			if (res.ok) {
+				alert('삭제에 성공했습니다.')
+				router.push('/admin/mainperformance')
+			} else {
+				alert('삭제에 실패했습니다.')
+			}
 		}
 	}
 
@@ -278,8 +318,8 @@ const Add = () => {
 						</label>
 						<input
 							type='text'
-							name='client'
-							value={formData.client}
+							name='clientName'
+							value={formData.clientName}
 							onChange={handleInputChange}
 							className={inputClassName}
 							required
@@ -401,11 +441,17 @@ const Add = () => {
 					>
 						저장
 					</button>
-
+					<button
+						type='button'
+						onClick={handleDelete}
+						className='px-4 py-2 bg-red-400 hover:bg-red-500 rounded-md text-white cursor-pointer'
+					>
+						삭제
+					</button>
 					<button
 						type='button'
 						onClick={() => router.back()}
-						className='px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300'
+						className='px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 cursor-pointer'
 					>
 						취소
 					</button>
@@ -415,4 +461,4 @@ const Add = () => {
 	)
 }
 
-export default Add
+export default PerformanceEdit

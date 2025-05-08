@@ -35,7 +35,13 @@ export async function POST(request: NextRequest) {
 			)
 		}
 
-		const s3Client = new S3Client({ region: process.env.REGION })
+		const s3Client = new S3Client({
+			region: process.env.REGION,
+			credentials: {
+				accessKeyId: process.env.ACCESS_KEY_ID!,
+				secretAccessKey: process.env.SECRET_ACCESS_KEY!,
+			},
+		})
 
 		// 모든 사진을 배열로 수집
 		const photos = [
@@ -79,7 +85,13 @@ export async function POST(request: NextRequest) {
 				.map((photo) => photo.url)
 
 			// 2. DynamoDB에 데이터 저장
-			const client = new DynamoDBClient({ region: process.env.REGION })
+			const client = new DynamoDBClient({
+				region: process.env.REGION,
+				credentials: {
+					accessKeyId: process.env.ACCESS_KEY_ID!,
+					secretAccessKey: process.env.SECRET_ACCESS_KEY!,
+				},
+			})
 			const docClient = DynamoDBDocumentClient.from(client)
 			const timestamp = new Date().toISOString()
 			const params = {
@@ -143,14 +155,31 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: Request) {
-	const client = new DynamoDBClient({ region: process.env.REGION })
+	const { searchParams } = new URL(request.url)
+	const performanceType = searchParams.get('type')
+
+	const client = new DynamoDBClient({
+		region: process.env.REGION,
+		credentials: {
+			accessKeyId: process.env.ACCESS_KEY_ID!,
+			secretAccessKey: process.env.SECRET_ACCESS_KEY!,
+		},
+	})
 	const docClient = DynamoDBDocumentClient.from(client)
+
 	const params: ScanCommandInput = {
 		TableName: process.env.DYNAMODB_TABLE_NAME!,
-		FilterExpression: 'subTable = :subTable',
-		ExpressionAttributeValues: {
-			':subTable': 'performance',
-		},
+		FilterExpression: performanceType
+			? 'subTable = :subTable AND performanceType = :type'
+			: 'subTable = :subTable',
+		ExpressionAttributeValues: performanceType
+			? {
+					':subTable': 'performance',
+					':type': performanceType,
+			  }
+			: {
+					':subTable': 'performance',
+			  },
 	}
 
 	const data = await docClient.send(new ScanCommand(params))

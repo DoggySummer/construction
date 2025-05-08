@@ -3,46 +3,50 @@
 import PaginationTable from '@/app/components/admin/table'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
+import { Performance } from '@/app/constants/type'
+import { formatDate } from '@/app/constants/utils'
 const AdminQuestionnaire = () => {
 	const router = useRouter()
 	const [dataList, setDataList] = useState([])
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch('/api/contact')
+			const response = await fetch('/api/performance')
 			const data = await response.json()
-			console.log(data.data)
-			const formattedData = data.data.map((item: any) => ({
+			console.log(data.items)
+			const formattedData = data.items.map((item: Performance) => ({
 				...item,
-				createdAt: new Date(item.createdAt).toLocaleString('ko-KR', {
-					year: 'numeric',
-					month: '2-digit',
-					day: '2-digit',
-					hour: '2-digit',
-					minute: '2-digit',
-					second: '2-digit',
-					hour12: false,
-				}),
+				contractPeriod:
+					formatDate(item.constructionStartDate) +
+					' ~ ' +
+					formatDate(item.constructionEndDate),
+				performanceType: (() => {
+					switch (item.performanceType) {
+						case '2':
+							return '구조물 해체공사'
+						case '3':
+							return '석면해체공사'
+						case '4':
+							return '토공사'
+						case '1':
+						default:
+							return '철거전용모듈비계'
+					}
+				})(),
 			}))
 			setDataList(formattedData)
 		}
 		fetchData()
 	}, [])
 	const columns = [
-		{
-			header: '이름',
-			accessor: 'name',
-			width: 'w-20',
-			type: 'text' as const,
-		},
+		{ header: '사업종류', accessor: 'performanceType', type: 'text' as const },
 		{ header: '제목', accessor: 'title', type: 'text' as const },
-		{ header: '이메일', accessor: 'email', type: 'text' as const },
-		{ header: '내용', accessor: 'content', type: 'text' as const },
-		{ header: '이미지', accessor: 'imageUrl', type: 'image' as const },
-		{ header: '생성일자', accessor: 'createdAt', type: 'text' as const },
+		{ header: '원도급', accessor: 'primeContractor', type: 'text' as const },
+		{ header: '발주자', accessor: 'clientName', type: 'text' as const },
+		{ header: '이미지', accessor: 'mainPhoto', type: 'image' as const },
+		{ header: '계약기간', accessor: 'contractPeriod', type: 'text' as const },
 	]
 	const handleRowClick = (row: any) => {
-		router.push(`/admin/question/${row.id}`)
+		router.push(`/admin/mainperformance/${row.id}`)
 	}
 	return (
 		<>

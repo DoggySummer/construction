@@ -4,27 +4,21 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Pagination from '../UI/pagination'
 import Link from 'next/link'
-
-interface Performance {
-	id: string
-	title: string
-	mainPhoto: string
-	performanceType: string
-	constructionStartDate: string
-	constructionEndDate: string
-}
+import { Performance } from '@/app/constants/type'
+import { usePerformanceStore } from '@/app/constants/store'
+import { formatDate } from '@/app/constants/utils'
 const Scaffolding = () => {
-	const [performances, setPerformances] = useState<Performance[]>([])
+	const { performances, setPerformances } = usePerformanceStore()
 	const [currentPage, setCurrentPage] = useState(1)
 	const [totalPages, setTotalPages] = useState(1)
 
 	const fetchData = async () => {
 		try {
-			const response = await fetch('/api/performance/1')
+			const response = await fetch('/api/performance?type=1')
 			const data = await response.json()
-			console.log(data)
-			setPerformances(data)
-			setTotalPages(Math.ceil(data.length / 6))
+			console.log(data.items)
+			setPerformances(data.items)
+			setTotalPages(Math.ceil(data.items.length / 6))
 		} catch (error) {
 			console.error('데이터 로딩 실패:', error)
 		}
@@ -34,14 +28,6 @@ const Scaffolding = () => {
 		fetchData()
 	}, [])
 
-	// 날짜 포맷팅 함수
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString)
-		return `${date.getFullYear()}년 ${
-			date.getMonth() + 1
-		}월 ${date.getDate()}일`
-	}
-
 	return (
 		<div className='container mx-auto px-4 py-8'>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 contentSize gap-8'>
@@ -50,7 +36,7 @@ const Scaffolding = () => {
 					.map((performance) => (
 						<Link
 							key={performance.id}
-							href={`/performancedetail/${performance.id}`}
+							href={`/mainperformance/1/${performance.id}`}
 							className='bg-white overflow-hidden duration-300 cursor-pointer'
 						>
 							<div className='relative aspect-[4/3] overflow-hidden group rounded-xl'>

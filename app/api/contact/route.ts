@@ -112,6 +112,10 @@ export async function GET() {
 
 		const command = new ScanCommand({
 			TableName: process.env.DYNAMODB_TABLE_NAME!,
+			FilterExpression: 'subTable = :subTable',
+			ExpressionAttributeValues: {
+				':subTable': 'contact',
+			},
 		})
 
 		const response = await docClient.send(command)

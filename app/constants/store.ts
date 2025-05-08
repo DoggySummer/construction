@@ -1,4 +1,6 @@
 import { create } from 'zustand'
+import { persist, createJSONStorage, StateStorage } from 'zustand/middleware'
+import { Performance } from './type'
 
 interface PopupState {
 	isOpen: boolean
@@ -30,3 +32,21 @@ export const usePopupStore = create<PopupState>((set) => ({
 		})
 	},
 }))
+
+interface PerformanceState {
+	performances: Performance[]
+	setPerformances: (performances: Performance[]) => void
+}
+
+export const usePerformanceStore = create<PerformanceState>()(
+	persist(
+		(set) => ({
+			performances: [],
+
+			setPerformances: (performances) => set({ performances }),
+		}),
+		{
+			name: 'performances',
+		}
+	)
+)

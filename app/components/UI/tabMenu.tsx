@@ -22,7 +22,7 @@ const TabMenu = ({ items }: TabMenuProps) => {
 					key={item.id}
 					href={item.navLink}
 					className={`flex-1 text-center py-4 text-lg font-medium ${
-						pathname === item.navLink
+						pathname.startsWith(item.navLink)
 							? 'text-white bg-primary shadow-md'
 							: 'text-black bg-white border-r border-gray-300 shadow-md'
 					} ${index === 0 ? 'border-l border-gray-300' : ''}`}
