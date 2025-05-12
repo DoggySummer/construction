@@ -8,6 +8,7 @@ import { corpInfo } from '@/app/constants/constants'
 import Map from '@/app/components/corpinfo/map'
 import CEOPage from '@/app/components/corpinfo/ceo'
 import History from '@/app/components/corpinfo/history'
+import Structure from '@/app/components/corpinfo/structure'
 import Ideology from '@/app/components/corpinfo/ideology'
 
 const CorpPage = () => {
@@ -20,6 +21,7 @@ const CorpPage = () => {
 			{params.id === '1' && <CEOPage />}
 			{params.id === '2' && <Ideology />}
 			{params.id === '3' && <History />}
+			{params.id === '4' && <Structure />}
 			{params.id === '5' && <Map />}
 		</div>
 	)

@@ -49,7 +49,7 @@ const PerformanceDetailPage = () => {
 				<div className='text-3xl font-bold flex justify-center mb-10'>
 					{performance.title}
 				</div>
-				<div className='flex items-center my-4 justify-around mb-10'>
+				<div className='lg:flex-row flex-col items-start pl-3 flex lg:items-center my-4 justify-around mb-10'>
 					<SubTitle title='공사기간' content={constructionDate} />
 					<SubTitle title='원도급' content={performance.primeContractor} />
 					<SubTitle title='발주자' content={performance.clientName} />
@@ -59,7 +59,7 @@ const PerformanceDetailPage = () => {
 					/>
 				</div>
 				<PerformanceDetailImage image={selectedImage} />
-				<div className='flex gap-8 items-center mb-10'>
+				<div className='flex gap-8 items-center mb-10 overflow-x-scroll'>
 					{performance.mainPhoto && (
 						<Image
 							src={performance.mainPhoto}
@@ -112,7 +112,7 @@ const PerformanceDetailPage = () => {
 							alt='subPhoto3'
 							width={1000}
 							height={1000}
-							className={`w-50 h-30 cursor-pointer object-cover ${
+							className={`w-50 h-30  cursor-pointer object-cover ${
 								selectedImage === performance.subPhoto3
 									? 'border-4 border-primary'
 									: ''
@@ -154,7 +154,7 @@ export default PerformanceDetailPage
 const SubTitle = ({ title, content }: { title: string; content: string }) => {
 	return (
 		<div className='flex items-center gap-6'>
-			<div className='text-lg font-semibold'>{title}</div>
+			<div className='text-lg font-semibold w-20 lg:w-auto'>{title}</div>
 			<div className='w-[2px] h-3 bg-gray-600' />
 			<div className='text-lg '>{content}</div>
 		</div>
@@ -177,7 +177,7 @@ const PerformanceDetailImage = ({ image }: { image: string }) => {
 						alt='mainPhoto'
 						width={2000}
 						height={2000}
-						className='object-cover w-full h-200'
+						className='object-cover lg:w-full h-50 lg:h-200 w-[calc(100%-12px)] mx-auto'
 					/>
 				</motion.div>
 			</AnimatePresence>

@@ -71,7 +71,7 @@ const Map = () => {
 				}}
 				className='contentSize'
 			/>
-			<div className='flex flex-col contentSize mt-8 mb-10'>
+			<div className='flex flex-col contentSize mt-8 mb-10 pl-3 lg:pl-0'>
 				<div className='flex items-center mb-4'>
 					<div className='text-xl font-semibold'>주식회사 신의환경</div>
 					<div className='w-[1px] h-4 mx-4 bg-gray-300' />
@@ -79,11 +79,11 @@ const Map = () => {
 						경기 용인시 처인구 모현읍 파담로 140-14, 103호
 					</div>
 				</div>
-				<div className='flex gap-10'>
+				<div className='flex lg:gap-10 lg:flex-row flex-col gap-2'>
 					<div className='text-xl font-semibold flex items-center gap-4'>
 						<div className='flex items-center gap-2'>
 							<Phone color='#095693' />
-							<div className='flex items-center'>전화</div>
+							<div className='flex items-center w-20 lg:w-auto'>전화</div>
 						</div>
 						<div className='w-[1px] h-4 bg-gray-300' />
 						<div className='text-base font-normal flex items-center'>
@@ -93,7 +93,7 @@ const Map = () => {
 					<div className='text-xl font-semibold flex items-center gap-4'>
 						<div className='flex items-center gap-2'>
 							<Printer color='#095693' />
-							<div className='flex items-center'>팩스</div>
+							<div className='flex items-center w-20 lg:w-auto'>팩스</div>
 						</div>
 						<div className='w-[1px] h-4 bg-gray-300' />
 						<div className='text-base font-normal flex items-center'>
@@ -103,7 +103,7 @@ const Map = () => {
 					<div className='text-xl font-semibold flex items-center gap-4'>
 						<div className='flex items-center gap-2'>
 							<Mail color='#095693' />
-							<div className='flex items-center'>이메일</div>
+							<div className='flex items-center w-20 lg:w-auto'>이메일</div>
 						</div>
 						<div className='w-[1px] h-4 bg-gray-300' />
 						<div className='text-base font-normal flex items-center'>

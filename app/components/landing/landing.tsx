@@ -1,7 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-import mobileImage from '@/public/myimage.avif'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { TextReveal } from './typingAnimation'
@@ -28,7 +26,7 @@ const LandingPC = () => {
 				playsInline
 				className='w-full h-full object-cover absolute top-0 left-0'
 			>
-				<source src='/main-video.mp4' type='video/mp4' />
+				<source src='/main video.mp4' type='video/mp4' />
 				Your browser does not support the video tag.
 			</video>
 			<div className='absolute top-0 left-0 w-full h-full bg-black/70'></div>
@@ -58,7 +56,7 @@ const LandingMobile = () => {
 					playsInline
 					className='w-full h-full object-cover absolute top-0 left-0'
 				>
-					<source src='/main-video.mp4' type='video/mp4' />
+					<source src='/main video.mp4' type='video/mp4' />
 					Your browser does not support the video tag.
 				</video>
 				<div className='absolute inset-0 bg-black/50 ' />
