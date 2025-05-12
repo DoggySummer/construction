@@ -2,7 +2,7 @@
 
 import ImageLine from '@/app/components/UI/imageLine'
 import { useParams } from 'next/navigation'
-import suitImage from '@/public/suit.png'
+import techImage from '@/public/tech.png'
 import TabMenu from '@/app/components/UI/tabMenu'
 import { newTech } from '@/app/constants/constants'
 
@@ -11,7 +11,7 @@ const NewTechPage = () => {
 	const tabItems = newTech
 	return (
 		<div>
-			<ImageLine image={suitImage} title='신기술 소개' />
+			<ImageLine image={techImage} title='신기술 소개' />
 			<TabMenu items={tabItems} />
 		</div>
 	)

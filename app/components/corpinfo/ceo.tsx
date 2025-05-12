@@ -17,7 +17,7 @@ const CEOPage = () => {
 		<div>
 			<Title title='CEO 인사말' />
 
-			<div className='flex gap-4 contentSize my-10 break-keep'>
+			<div className='flex lg:flex-row flex-col p-3 lg:p-0 text-center gap-4 contentSize my-10 break-keep'>
 				<div className='flex flex-col flex-1/2 items-center justify-center'>
 					<Image
 						src={logoLeaf}
@@ -26,7 +26,7 @@ const CEOPage = () => {
 						height={231}
 						className='w-1/3 object-cover'
 					/>
-					<div className='text-6xl mt-10 font-bold flex items-center leading-none text-primary justify-center'>
+					<div className='text-6xl mt-10 font-bold flex items-center leading-none text-primary justify-center mb-10 lg:mb-0'>
 						<div className='w-[5px] h-[calc(100%-5px)] mt-1 bg-primary' />
 						<span className='mx-1'>주</span>
 						<div className='w-[5px] h-[calc(100%-5px)] mt-1 bg-primary mr-1' />
@@ -37,7 +37,7 @@ const CEOPage = () => {
 					<div className='font-semibold text-xl pb-6'>{title}</div>
 					{text.map((item, i) => {
 						return (
-							<div className='text-base pb-6' key={i}>
+							<div className='text-base pb-6 w-full' key={i}>
 								{item}
 							</div>
 						)

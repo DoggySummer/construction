@@ -51,16 +51,17 @@ const LandingMobile = () => {
 	return (
 		<div className='h-screen bg-black'>
 			<div className='relative w-full h-full'>
-				<Image
-					src={mobileImage}
-					alt='building'
-					width={1920}
-					height={1080}
-					quality={100}
-					priority
-					className='w-full h-full object-cover px-5 pt-6 rounded-lg'
-				/>
-				<div className='absolute inset-0 bg-black/50 mx-5 mt-6' />
+				<video
+					autoPlay
+					muted
+					loop
+					playsInline
+					className='w-full h-full object-cover absolute top-0 left-0'
+				>
+					<source src='/main-video.mp4' type='video/mp4' />
+					Your browser does not support the video tag.
+				</video>
+				<div className='absolute inset-0 bg-black/50 ' />
 				<div className='absolute bottom-20 left-2 right-0 p-5'>
 					<div className='text-3xl text-white whitespace-pre-line font-semibold leading-normal'>
 						<TextReveal text={title} onComplete={() => setIsTypingDone(true)} />

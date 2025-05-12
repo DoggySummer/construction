@@ -16,16 +16,17 @@ const TabMenu = ({ items }: TabMenuProps) => {
 	const pathname = usePathname()
 
 	return (
-		<nav className='flex max-w-[1200px] mx-auto justify-center mb-3'>
+		<nav className='flex max-w-[1200px] mx-auto justify-start mb-3 bg-primary overflow-x-scroll'>
 			{items.map((item, index) => (
 				<Link
 					key={item.id}
 					href={item.navLink}
-					className={`flex-1 text-center py-4 text-lg font-medium ${
+					className={`text-center px-4 py-3 lg:text-lg text-xs lg:flex-1 font-medium whitespace-nowrap ${
 						pathname.startsWith(item.navLink)
-							? 'text-white bg-primary shadow-md'
-							: 'text-black bg-white border-r border-gray-300 shadow-md'
-					} ${index === 0 ? 'border-l border-gray-300' : ''}`}
+							? 'text-black bg-white shadow-md'
+							: 'bg-primary text-white shadow-md'
+					} ${index === 0 ? 'border-l border-gray-300' : ''} 
+					${index !== items.length - 1 ? 'border-r border-gray-300' : ''}`}
 				>
 					{item.title}
 				</Link>

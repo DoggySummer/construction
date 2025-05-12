@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Plus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
@@ -9,7 +9,19 @@ import logo from '@/public/logo-nobg.png'
 import { submenu } from '@/app/constants/constants'
 
 export default function Navbar() {
-	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	return (
+		<>
+			<div className='block lg:hidden'>
+				<NavbarMobile />
+			</div>
+			<div className='hidden lg:block'>
+				<NavbarPC />
+			</div>
+		</>
+	)
+}
+
+const NavbarPC = () => {
 	const [subMenuOpen, setSubMenuOpen] = useState(false)
 
 	const pathname = usePathname()
@@ -92,15 +104,78 @@ export default function Navbar() {
 					{subMenuOpen && <SubMenu />}
 				</div>
 			</div>
+		</div>
+	)
+}
 
-			{/* 모바일 햄버거 버튼 */}
-			<button
-				className='lg:hidden text-white p-2'
-				onClick={() => setIsMenuOpen(true)}
-			>
-				<Menu size={28} />
-			</button>
+const NavbarMobile = () => {
+	const navTitle = [
+		'회사 소개',
+		'신기술소개',
+		'사업분야',
+		'주요실적',
+		'커뮤니티',
+	]
+	const pathname = usePathname()
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [openSubMenus, setOpenSubMenus] = useState<{ [key: string]: boolean }>(
+		{}
+	)
 
+	const toggleSubMenu = (menuName: string) => {
+		setOpenSubMenus((prev) => {
+			// 새로운 객체 생성
+			const newState = { ...prev }
+
+			// 모든 메뉴를 먼저 닫음
+			Object.keys(newState).forEach((key) => {
+				newState[key] = false
+			})
+
+			// 클릭한 메뉴만 토글
+			newState[menuName] = !prev[menuName]
+
+			return newState
+		})
+	}
+
+	const closeMenu = () => {
+		setIsMenuOpen(false)
+		toggleSubMenu('')
+	}
+
+	return (
+		<div className='absolute top-0 left-0 right-0 z-10'>
+			<div className='flex justify-between items-center px-4 mt-10'>
+				<Link
+					href='/'
+					className={`${
+						pathname === '/' ? 'text-white' : 'text-black'
+					} text-3xl  font-medium cursor-pointer flex items-center gap-1`}
+				>
+					<Image src={logo} width={36} height={36} alt='logo' />
+					<div
+						className={`w-[3px] ml-2 h-6 ${
+							pathname === '/' ? 'bg-white' : 'bg-black'
+						}`}
+					/>
+					주
+					<div
+						className={`w-[3px] h-6 mr-1 ${
+							pathname === '/' ? 'bg-white' : 'bg-black'
+						}`}
+					/>
+					신의환경
+				</Link>
+				<button
+					className={`lg:hidden  p-2 	${
+						pathname === '/' ? 'text-white' : 'text-black'
+					} `}
+					onClick={() => setIsMenuOpen(true)}
+				>
+					<Menu size={28} />
+				</button>
+			</div>
 			{/* 모바일 슬라이드 메뉴 */}
 			<AnimatePresence>
 				{isMenuOpen && (
@@ -110,7 +185,7 @@ export default function Navbar() {
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							onClick={() => setIsMenuOpen(false)}
+							onClick={closeMenu}
 							className='fixed inset-0 bg-black/60 z-40 h-screen'
 						/>
 
@@ -120,51 +195,74 @@ export default function Navbar() {
 							animate={{ x: 0 }}
 							exit={{ x: '100%' }}
 							transition={{ type: 'tween', duration: 0.3 }}
-							className='fixed top-0 right-0 w-[300px] h-screen bg-black z-50 p-8'
+							className='fixed top-0 right-0 w-[300px] h-screen bg-white z-50 p-8'
 						>
 							<button
-								className='absolute top-6 right-6 text-white'
-								onClick={() => setIsMenuOpen(false)}
+								className='absolute top-5 right-7 text-black'
+								onClick={closeMenu}
 							>
 								<X size={28} />
 							</button>
-
-							<div className='flex flex-col space-y-8 mt-16'>
-								<Link
-									href='/'
-									className='text-xl font-semibold text-white hover:text-gray-300 transition-colors'
-									onClick={() => setIsMenuOpen(false)}
-								>
-									회사 소개
-								</Link>
-								<Link
-									href='/'
-									className='text-xl font-semibold text-white hover:text-gray-300 transition-colors'
-									onClick={() => setIsMenuOpen(false)}
-								>
-									사업실적
-								</Link>
-								<Link
-									href='/'
-									className='text-xl font-semibold text-white hover:text-gray-300 transition-colors'
-									onClick={() => setIsMenuOpen(false)}
-								>
-									자료실
-								</Link>
-								<Link
-									href='/location'
-									className='text-xl font-semibold text-white hover:text-gray-300 transition-colors'
-									onClick={() => setIsMenuOpen(false)}
-								>
-									오시는 길
-								</Link>
-								<Link
-									href='/contact'
-									className='text-xl font-semibold text-white hover:text-gray-300 transition-colors'
-									onClick={() => setIsMenuOpen(false)}
-								>
-									문의하기
-								</Link>
+							<div className='mt-14'>
+								{submenu.map((item, i) => {
+									return (
+										<div className='border-b border-gray-200' key={i}>
+											<div className='flex justify-between items-center py-4'>
+												<div
+													className='text-xl font-semibold text-black'
+													onClick={() => toggleSubMenu(navTitle[i])}
+												>
+													{navTitle[i]}
+												</div>
+												<button
+													onClick={() => toggleSubMenu(navTitle[i])}
+													className='text-black'
+												>
+													{openSubMenus[navTitle[i]] ? (
+														<X size={20} />
+													) : (
+														<Plus size={20} />
+													)}
+												</button>
+											</div>
+											<AnimatePresence>
+												{openSubMenus[navTitle[i]] && (
+													<motion.div
+														initial={{ opacity: 0, height: 0 }}
+														animate={{ opacity: 1, height: 'auto' }}
+														exit={{ opacity: 0, height: 0 }}
+														transition={{
+															duration: 0.3,
+															ease: 'easeInOut',
+															height: {
+																duration: 0.3,
+															},
+															opacity: {
+																duration: 0.2,
+															},
+														}}
+														className='pl-4 overflow-hidden'
+													>
+														<div className='py-4'>
+															{item.map((navLink, i) => {
+																return (
+																	<Link
+																		key={i}
+																		href={navLink.navLink}
+																		onClick={closeMenu}
+																		className='block py-2 text-gray-600 hover:text-black transition-colors'
+																	>
+																		{navLink.title}
+																	</Link>
+																)
+															})}
+														</div>
+													</motion.div>
+												)}
+											</AnimatePresence>
+										</div>
+									)
+								})}
 							</div>
 						</motion.div>
 					</>

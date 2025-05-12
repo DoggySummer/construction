@@ -25,7 +25,7 @@ const Footer = () => {
 				onClose={() => setIsPopup(false)}
 				type={2}
 			/>
-			<div className='border-t border-black mb-10'>
+			<div className='border-t border-black mb-10 mx-4 lg:mx-0'>
 				<div className='contentSize'>
 					<div className='mt-10 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-2'>
 						<div className='flex items-center'>
