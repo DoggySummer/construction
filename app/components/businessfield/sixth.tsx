@@ -3,13 +3,13 @@ import sixthImage from '@/public/biz_6.jpg'
 
 const Sixth = () => {
 	return (
-		<div className='flex contentSize mt-10 gap-20 mb-10 justify-center break-keep'>
+		<div className='flex lg:flex-row flex-col contentSize mt-10 lg:gap-20 gap-10 mb-10 justify-center break-keep'>
 			<Image
 				src={sixthImage}
 				alt='first'
-				className='w-100 h-100 object-cover '
+				className='lg:w-100 lg:h-100 object-cover w-4/5 aspect-square mx-auto'
 			/>
-			<div className='flex flex-col w-1/2'>
+			<div className='flex flex-col w-4/5 mx-auto lg:w-1/2'>
 				<h1 className='text-3xl font-bold'>해체계획서 작성 </h1>
 				<div className='text-sm'>Demolition Plan</div>
 				<div className='my-4 font-semibold'>

@@ -17,6 +17,7 @@ const Landing = () => {
 }
 
 const LandingPC = () => {
+	const [isTypingDone, setIsTypingDone] = useState(false)
 	return (
 		<div className='h-screen'>
 			<video
@@ -31,11 +32,23 @@ const LandingPC = () => {
 			</video>
 			<div className='absolute top-0 left-0 w-full h-full bg-black/70'></div>
 			<div className='absolute top-1/3 left-10 text-white'>
-				<h1 className='text-5xl font-extrabold pb-10'>We Create Safety</h1>
-				<h1 className='text-5xl font-normal pb-10'>
-					신뢰를 바탕으로, 안전을 약속하는 기업
+				<h1 className='text-5xl font-extrabold pb-10'>
+					<TextReveal
+						text={'We Create Safety'}
+						onComplete={() => setIsTypingDone(true)}
+					/>
 				</h1>
-				<h1 className='text-5xl font-normal'>(주)신의환경</h1>
+				<motion.div
+					initial={{ opacity: 0, y: -20 }}
+					animate={isTypingDone ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+					transition={{ duration: 0.5, delay: 0.2 }}
+				>
+					{/* detail 내용 */}
+					<h1 className='text-5xl font-normal pb-10'>
+						신뢰를 바탕으로, 안전을 약속하는 기업
+					</h1>
+					<h1 className='text-5xl font-normal'>(주)신의환경</h1>
+				</motion.div>
 			</div>
 		</div>
 	)

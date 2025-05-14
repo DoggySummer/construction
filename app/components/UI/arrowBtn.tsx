@@ -3,21 +3,18 @@
 type ArrowBtnProps = {
 	content: string
 	navLink: string
+	isHover: boolean
 }
 import { FaArrowRight } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 
-const ArrowBtn = ({ content, navLink }: ArrowBtnProps) => {
-	const [isHover, setIsHover] = useState(false)
+const ArrowBtn = ({ content, navLink, isHover }: ArrowBtnProps) => {
 	const router = useRouter()
 	return (
 		<motion.div
 			className='text-primary font-semibold border-primary border-2 p-2 flex justify-between  items-center rounded-full cursor-pointer overflow-hidden w-[150px] h-13 relative'
 			onClick={() => router.push(navLink)}
-			onMouseEnter={() => setIsHover(true)}
-			onMouseLeave={() => setIsHover(false)}
 		>
 			<span
 				className={`z-10 ml-3 ${

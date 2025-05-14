@@ -2,7 +2,7 @@
 
 import ImageLine from '@/app/components/UI/imageLine'
 import { useParams } from 'next/navigation'
-import suitImage from '@/public/suit.png'
+import businessFieldImage from '@/public/businessField.png'
 import TabMenu from '@/app/components/UI/tabMenu'
 import { businessField } from '@/app/constants/constants'
 import First from '@/app/components/businessfield/first'
@@ -17,7 +17,7 @@ const BusinessFieldPage = () => {
 	const tabItems = businessField
 	return (
 		<div>
-			<ImageLine image={suitImage} title='사업분야' />
+			<ImageLine image={businessFieldImage} title='사업분야' />
 			<TabMenu items={tabItems} />
 			{params.id === '1' && <First />}
 			{params.id === '2' && <Second />}

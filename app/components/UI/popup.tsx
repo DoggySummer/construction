@@ -20,7 +20,7 @@ const Popup: React.FC<PopupProps> = ({ title, isOpen, onClose, type }) => {
 
 			{/* 팝업 컨텐츠 */}
 			<div
-				className='bg-white rounded-lg relative z-10 min-w-[600px] '
+				className='bg-white rounded-lg relative z-10 lg:w-[600px] w-[90%] '
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className='border-b pb-2 mb-4 bg-primary p-3 rounded-t-lg flex justify-between items-center'>
@@ -41,12 +41,12 @@ const Popup: React.FC<PopupProps> = ({ title, isOpen, onClose, type }) => {
 
 const Email = () => {
 	const text = `본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며 이를 위반시 정보통신망법에 의해 형사처벌됨을 유념하시기 바랍니다.`
-	return <div className='pl-3 max-w-[500px] pb-5'>{text}</div>
+	return <div className='px-3  pb-5'>{text}</div>
 }
 
 const Individual = () => {
 	return (
-		<div className='pl-3 pb-5 max-w-[500px] text-sm overflow-scroll max-h-[300px]'>
+		<div className='px-3 pb-5 max-w-[500px] text-sm overflow-scroll max-h-[300px]'>
 			<div className='mb-10'>
 				<div className='mb-4'>
 					'주식회사 신의환경'(이하 '회사'라 한다)은 고객님의 개인정보를 소중히

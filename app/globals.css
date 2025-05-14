@@ -12,3 +12,47 @@
 @theme {
 	--color-primary: #095693;
 }
+/* globals.css */
+.swiper-button-next,
+.swiper-button-prev {
+	width: 48px !important;
+	height: 48px !important;
+	background-color: rgba(255, 255, 255, 0.8) !important;
+	border-radius: 50% !important;
+	color: #666 !important;
+	top: 50% !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+	background-color: white !important;
+	color: #333 !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	font-size: 24px !important;
+}
+
+.swiper-button-prev {
+	left: 20px !important;
+}
+
+.swiper-button-next {
+	right: 20px !important;
+}
+
+@media (max-width: 768px) {
+	.swiper-button-next,
+	.swiper-button-prev {
+		top: 30% !important;
+	}
+
+	.swiper-button-prev {
+		left: 10px !important;
+	}
+
+	.swiper-button-next {
+		right: 10px !important;
+	}
+}

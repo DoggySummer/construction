@@ -91,14 +91,14 @@ const History = () => {
 		<div className='contentSize'>
 			<Title title='회사연혁' />
 			<div className='flex w-full justify-between gap-4'>
-				<div className='flex flex-col w-1/2'>
+				<div className='flex flex-col w-full lg:w-1/2 p-3 lg:p-0'>
 					{detailedContent.map((item, i) => {
 						return (
 							<HistoryContent key={i} year={item.year} detail={item.detail} />
 						)
 					})}
 				</div>
-				<div className='w-1/3'>
+				<div className='w-1/3 hidden lg:block'>
 					<Image
 						src={Suit}
 						width={1920}
@@ -137,7 +137,9 @@ const HistoryContent = (props: HistoryContentProps) => {
 						className='mt-2 pb-3 border-b border-gray-500 flex justify-start'
 					>
 						<div className='mr-5 w-15 '>{item.date}</div>
-						<div className='pr-3 whitespace-pre-line'>{item.content}</div>
+						<div className='pr-3 whitespace-pre-line break-keep'>
+							{item.content}
+						</div>
 					</div>
 				)
 			})}

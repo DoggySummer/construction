@@ -25,7 +25,7 @@ const TabMenu = ({ items }: TabMenuProps) => {
 						pathname.startsWith(item.navLink)
 							? 'text-black bg-white shadow-md'
 							: 'bg-primary text-white shadow-md'
-					} ${index === 0 ? 'border-l border-gray-300' : ''} 
+					} ${index === 0 ? 'border-l border-white' : ''} 
 					${index !== items.length - 1 ? 'border-r border-gray-300' : ''}`}
 				>
 					{item.title}

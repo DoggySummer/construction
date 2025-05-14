@@ -2,7 +2,7 @@
 
 import ImageLine from '@/app/components/UI/imageLine'
 import { useParams } from 'next/navigation'
-import suitImage from '@/public/suit.png'
+import blueprintImage from '@/public/blueprint.png'
 import TabMenu from '@/app/components/UI/tabMenu'
 import { mainPerformance } from '@/app/constants/constants'
 import Scaffolding from '@/app/components/mainperformance/scaffolding'
@@ -16,7 +16,7 @@ const PerformancePage = () => {
 
 	return (
 		<div>
-			<ImageLine image={suitImage} title='주요실적' />
+			<ImageLine image={blueprintImage} title='주요실적' />
 			<TabMenu items={tabItems} />
 			{params.id === '1' && <Scaffolding />}
 			{params.id === '2' && <Demolition />}
