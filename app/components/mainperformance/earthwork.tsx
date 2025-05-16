@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { usePerformanceStore } from '@/app/constants/store'
 import { formatDate } from '@/app/constants/utils'
 const Earthwork = () => {
+	const nothing = ''
 	const { performances, setPerformances } = usePerformanceStore()
 	const [currentPage, setCurrentPage] = useState(1)
 	const [totalPages, setTotalPages] = useState(1)
